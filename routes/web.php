@@ -16,6 +16,10 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
+    return view('frontOffice/home');
+});
+
+Route::get('/vue', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
