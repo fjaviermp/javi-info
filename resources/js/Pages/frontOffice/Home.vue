@@ -1,20 +1,20 @@
 <script setup>
-import { Head, Link } from '@inertiajs/vue3';
-import Navbar from '../../Components/frontOffice/Navbar.vue'
-import Landscape from '../../Components/frontOffice/Landscape.vue'
-import Footer from '../../Components/frontOffice/Footer.vue'
-import Characteristics from '../../Components/frontOffice/Characteristics.vue'
-import About from '../../Components/frontOffice/About.vue'
+    import { Head, Link } from '@inertiajs/vue3';
+    import Navbar from '../../Components/frontOffice/Navbar.vue'
+    import Landscape from '../../Components/frontOffice/Landscape.vue'
+    import Footer from '../../Components/frontOffice/Footer.vue'
+    import Characteristics from '../../Components/frontOffice/Characteristics.vue'
+    import About from '../../Components/frontOffice/About.vue'
 
-defineProps({
-    options: Array,
-});
+    const props = defineProps({
+            options: Object,
+    });
 </script>
 
 <template>
-    <Head title="Welcome" />
-    <Navbar></Navbar>
-    <Landscape></Landscape>
+    <Head :title="options.web_title"></Head>
+    <Navbar :title="options.web_title"></Navbar>
+    <Landscape :title="options.home_title" :subtitle="options.home_subtitle" :btnText="options.home_btnText" :image="'../img/'+options.home_image"></Landscape>
     <Characteristics></Characteristics>
     <About></About>
 

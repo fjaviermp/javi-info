@@ -1,11 +1,27 @@
+<script setup>
+    const props = defineProps({
+        title: String,
+        subtitle: String,
+        btnText: String,
+        image: String
+    });
+
+    const bgImg = "url("+props.image+")";
+</script>
+<script>
+    export default{
+        props: ['title','subtitle','btnText','image'],
+    }
+</script>
+
 <template>
     <section class="" id="landscape-image">
         <div alt="Portada" class="landscape-file img-fluid"></div>
 
         <div class="image-text">
-            <h1>Bienvenido a mi sitio web</h1>
-            <p>Este es un sitio web impresionante que he creado con HTML, CSS y Bootstrap.</p>
-            <a href="#" class="btn btn-primary btn-lg">¡Comencemos!</a>
+            <h1>{{ title }}</h1>
+            <p>{{ subtitle }}</p>
+            <a href="#" class="btn btn-primary btn-lg">{{ btnText }}</a>
         </div>
     </section>
 </template>
@@ -31,7 +47,7 @@
     }
 
     .landscape-file{
-        background-image: url("../img/bg.webp");
+        background-image: v-bind(bgImg);
         background-attachment: fixed;
         background-position: center;
     }

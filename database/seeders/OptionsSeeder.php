@@ -30,7 +30,7 @@ class OptionsSeeder extends Seeder{
             2 => 
             array (
                 'id' => 3,
-                'value' => 'favicon.png',
+                'value' => 'favicon.ico', //Por mis narices que esto tendra que llamarse siempre asi, que si no el VUE Head dice que me vaya a tomar por culo de una forma increible
                 'key' => 'favicon',
                 'type' => 'file',
                 'created_at' => '2023-03-16 18:05:00',
@@ -40,16 +40,34 @@ class OptionsSeeder extends Seeder{
             array (
                 'id' => 4,
                 'value' => 'Título de la web',
+                'key' => 'web_title',
+                'type' => 'text',
+                'created_at' => '2023-03-16 18:05:00',
+                'updated_at' => '2023-03-16 18:05:00',
+            ),
+            4 => 
+            array (
+                'id' => 5,
+                'value' => 'MI TITULO DE LA WEB',
                 'key' => 'home_title',
                 'type' => 'text',
                 'created_at' => '2023-03-16 18:05:00',
                 'updated_at' => '2023-03-16 18:05:00',
             ),
-            8 => 
+            5 => 
             array (
-                'id' => 9,
-                'value' => 'SUBTÍTULO DE LA WEB',
+                'id' => 6,
+                'value' => 'MI SUBTITULO DE WEB, aqui puede ir una descripción super larga, como esta. Es que poner un lorem ipsum está muy visto ya ¿No?',
                 'key' => 'home_subtitle',
+                'type' => 'text',
+                'created_at' => '2023-03-16 18:05:00',
+                'updated_at' => '2023-03-16 18:05:00',
+            ),
+            7 => 
+            array (
+                'id' => 7,
+                'value' => 'Descubrir Más',
+                'key' => 'home_btnText',
                 'type' => 'text',
                 'created_at' => '2023-03-16 18:05:00',
                 'updated_at' => '2023-03-16 18:05:00',
