@@ -7,6 +7,12 @@ use Inertia\Inertia;
 
 Route::get('/', function () {
     return Inertia::render('frontOffice/Home', [
+        'options' => OptionsController::getOptions(),
+    ]);
+});
+
+Route::get('/contacto', function () {
+    return Inertia::render('TermsOfService', [
         'options' => OptionsController::getOptions()
     ]);
 });

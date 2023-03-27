@@ -1,4 +1,6 @@
 <script setup>
+    import { Link } from '@inertiajs/vue3';
+
     const props = defineProps({
         title: String,
     });
@@ -24,7 +26,7 @@
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
+                        <Link class="nav-link" :href="('/contacto')">Contacto</Link>
                     </li>
                 </ul>
             </div>

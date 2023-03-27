@@ -12,7 +12,7 @@
 </script>
 
 <template>
-    <Head :title="options.web_title"></Head>
+    <Head :title="('Inicio')"></Head>
     <Navbar :title="options.web_title"></Navbar>
     <Landscape :title="options.home_title" :subtitle="options.home_subtitle" :btnText="options.home_btnText" :image="'../img/'+options.home_image"></Landscape>
     <Characteristics></Characteristics>
