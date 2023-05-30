@@ -4,7 +4,7 @@ import 'bootstrap/dist/js/bootstrap.min.js'
 import '@fortawesome/fontawesome-free/js/all.js';
 
 import { createApp, h } from 'vue';
-import { createInertiaApp, Link } from '@inertiajs/vue3';
+import { createInertiaApp,Head,Link } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 
@@ -17,6 +17,7 @@ createInertiaApp({
         return createApp({ render: () => h(App, props) })
             .use(plugin)
             .use(ZiggyVue, Ziggy)
+            .component('InertiaHead', Head)
             .component('inertia-link', Link)
             .mount(el);
     },

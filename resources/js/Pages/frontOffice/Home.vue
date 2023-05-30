@@ -1,25 +1,38 @@
-<script setup>
-    import { Head, Link } from '@inertiajs/vue3';
-    import Navbar from '../../Components/frontOffice/Navbar.vue'
-    import Landscape from '../../Components/frontOffice/Landscape.vue'
+<script>
+    import { Head } from '@inertiajs/vue3';
+    import { defineAsyncComponent } from 'vue'
+
     import Footer from '../../Components/frontOffice/Footer.vue'
     import Characteristics from '../../Components/frontOffice/Characteristics.vue'
     import About from '../../Components/frontOffice/About.vue'
 
-    const props = defineProps({
-            options: Object,
-    });
+    export default {
+        components: {
+            Head,
+            Navbar: defineAsyncComponent(() =>
+                import('../../Components/frontOffice/Navbar.vue')
+            ),
+            Landscape: defineAsyncComponent(() =>
+                import('../../Components/frontOffice/Landscape.vue')
+            ),
+        }
+    }
 </script>
 
 <template>
-    <Head :title="('Inicio')"></Head>
-    <Navbar :title="options.web_title"></Navbar>
-    <Landscape :title="options.home_title" :subtitle="options.home_subtitle" :btnText="options.home_btnText" :image="'../img/'+options.home_image"></Landscape>
-    <Characteristics></Characteristics>
-    <About></About>
+    <Suspense timeout="0">
+        <template #fallback>
+            <h1>CARGANDO...</h1>
+        </template>
 
-    <Footer></Footer>
+        <template>
+            <Head :title="('Inicio')"></Head>
+            <Navbar></Navbar>
+            <Landscape></Landscape>
+        </template>
+    </Suspense>
 </template>
+
 <style>
     section .feature{
         padding: 1em;

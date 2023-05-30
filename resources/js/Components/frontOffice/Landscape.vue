@@ -1,27 +1,25 @@
-<script setup>
-    const props = defineProps({
-        title: String,
-        subtitle: String,
-        btnText: String,
-        image: String
-    });
-
-    const bgImg = "url("+props.image+")";
-</script>
 <script>
-    export default{
-        props: ['title','subtitle','btnText','image'],
-    }
+    export default ({
+        async setup() {
+            const landscape = await fetch("/getOptions")
+                .then(res => res.json())
+                .then(res => res)
+            return {
+                landscape
+            }
+        },
+    })
+
 </script>
 
 <template>
     <section class="" id="landscape-image">
-        <div alt="Portada" class="landscape-file img-fluid"></div>
+        <div alt="Portada" class="landscape-file img-fluid" v-bind:style="{ backgroundImage: 'url(' + landscape.home_image + ')' }"></div>
 
         <div class="image-text">
-            <h1>{{ title }}</h1>
-            <p>{{ subtitle }}</p>
-            <a href="#" class="btn btn-primary btn-lg">{{ btnText }}</a>
+            <h1>{{ landscape.home_title }}</h1>
+            <p>{{ landscape.home_subtitle }}</p>
+            <a :href="landscape.home_btnLink" class="btn btn-primary btn-lg">{{ landscape.home_btnText }}</a>
         </div>
     </section>
 </template>
@@ -47,7 +45,6 @@
     }
 
     .landscape-file{
-        background-image: v-bind(bgImg);
         background-attachment: fixed;
         background-position: center;
     }

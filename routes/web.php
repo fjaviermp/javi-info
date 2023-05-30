@@ -6,9 +6,7 @@ use App\Http\Controllers\OptionsController;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('frontOffice/Home', [
-        'options' => OptionsController::getOptions(),
-    ]);
+    return Inertia::render('frontOffice/Home');
 });
 
 Route::get('/contacto', function () {
@@ -17,7 +15,7 @@ Route::get('/contacto', function () {
     ]);
 });
 
-Route::get('/test','App\Http\Controllers\OptionsController@getOptions');
+Route::get('/getOptions','App\Http\Controllers\OptionsController@getOptions');
 
 Route::middleware([
     'auth:sanctum',

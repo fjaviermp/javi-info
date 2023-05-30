@@ -1,20 +1,26 @@
-<script setup>
+<script>
     import { Link } from '@inertiajs/vue3';
 
-    const props = defineProps({
-        title: String,
-    });
+    export default ({
+        components: {
+            Link,
+        },
+        async setup() {
+            const title = await fetch("/getOptions")
+                .then(res => res.json())
+                .then(res => res.web_title)
+            return {
+                title
+            }
+        },
+    })
 </script>
-<script>
-    export default{
-        props: ['title'],
-    }
-</script>
+
 <template>
     <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
         <div class="container">
             
-            <a class="navbar-brand" href="#">{{title}}</a>
+            <a class="navbar-brand" href="#">{{ title }}</a>
             
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
