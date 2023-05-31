@@ -2,8 +2,12 @@
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\OptionsController;
 use Inertia\Inertia;
+use Illuminate\Http\Request;
+
+use App\Http\Controllers\OptionsController;
+use App\Http\Controllers\CategoriesController;
+
 
 Route::get('/', function () {
     return Inertia::render('frontOffice/Home');
@@ -15,10 +19,18 @@ Route::get('/contacto', function () {
     ]);
 });
 
-Route::get('/getOptions','App\Http\Controllers\OptionsController@getOptions');
+Route::get('/getOptions','OptionsController@getOptions');
 
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])->group(function () {
     Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
+        return Inertia::render('backOffice/Dashboard', [
+            'options' => OptionsController::getOptions()
+        ]);
     })->name('dashboard');
+});
+
+Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
+    Route::controller(CategoriesController::class)->group(function () {
+        Route::get('/test', 'get');
+    });
 });

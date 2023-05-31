@@ -6,8 +6,6 @@
 
         <jet-bar-container>
 
-            <jet-bar-alert text="This is an alert message" />
-
             <jet-bar-stats-container >
                 <jet-bar-stat-card title="Total clients" number="6389" type="warning">
                     <template v-slot:icon>
@@ -63,14 +61,14 @@
 
 <script>
 import AppLayout from '@/Layouts/AppLayout.vue'
-import JetBarContainer from "@/Components/JetBarContainer.vue";
-import JetBarAlert from "@/Components/JetBarAlert.vue";
-import JetBarStatsContainer from "@/Components/JetBarStatsContainer.vue";
-import JetBarStatCard from "@/Components/JetBarStatCard.vue";
-import JetBarTable from "@/Components/JetBarTable.vue";
-import JetBarTableData from "@/Components/JetBarTableData.vue";
-import JetBarBadge from "@/Components/JetBarBadge.vue";
-import JetBarIcon from "@/Components/JetBarIcon.vue";
+import JetBarContainer from "@/Components/backOffice/JetBarContainer.vue";
+import JetBarAlert from "@/Components/backOffice/JetBarAlert.vue";
+import JetBarStatsContainer from "@/Components/backOffice/Stat/JetBarStatsContainer.vue";
+import JetBarStatCard from "@/Components/backOffice/Stat/JetBarStatCard.vue";
+import JetBarTable from "@/Components/backOffice/Table/JetBarTable.vue";
+import JetBarTableData from "@/Components/backOffice/Table/JetBarTableData.vue";
+import JetBarBadge from "@/Components/backOffice/JetBarBadge.vue";
+import JetBarIcon from "@/Components/backOffice/JetBarIcon.vue";
 
 export default {
     components: {
