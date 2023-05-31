@@ -6,8 +6,17 @@ defineProps({
 
 <template>
     <div v-show="message">
-        <p class="text-sm text-red-600">
+        <p id="inputFail">
             {{ message }}
         </p>
     </div>
 </template>
+
+<style>
+    #inputFail{
+        font-weight: bolder;
+        font-size: larger;
+        color: red;
+        
+    }  
+</style>

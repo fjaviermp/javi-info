@@ -1,12 +1,13 @@
 <script setup>
 import { Head, Link, useForm } from '@inertiajs/vue3';
-import AuthenticationCard from '@/Components/AuthenticationCard.vue';
-import AuthenticationCardLogo from '@/Components/AuthenticationCardLogo.vue';
-import Checkbox from '@/Components/Checkbox.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
+
+import AuthenticationCard from '@/Components/auth/AuthenticationCard.vue';
+
+import Checkbox from '@/Components/forms/Checkbox.vue';
+import InputError from '@/Components/forms/InputError.vue';
+import InputLabel from '@/Components/forms/InputLabel.vue';
+import PrimaryButton from '@/Components/forms/PrimaryButton.vue';
+import TextInput from '@/Components/forms/TextInput.vue';
 
 defineProps({
     canResetPassword: Boolean,
@@ -30,61 +31,146 @@ const submit = () => {
 </script>
 
 <template>
-    <Head title="Log in" />
+    <Head title="Login" />
 
-    <AuthenticationCard>
-        <template #logo>
-            <AuthenticationCardLogo />
-        </template>
+    <div id="bgImage"></div>
 
-        <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
-            {{ status }}
+    <div id="loginZone">
+    <div id="loginCard">
+
+        <div class="imgLogin">
+            <img class="img-fluid" src="logo.png" alt="Logo de la web">
         </div>
 
-        <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="email" value="Email" />
-                <TextInput
-                    id="email"
-                    v-model="form.email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    required
-                    autofocus
-                    autocomplete="username"
-                />
-                <InputError class="mt-2" :message="form.errors.email" />
-            </div>
+        <div class="loginContent">
 
-            <div class="mt-4">
-                <InputLabel for="password" value="Password" />
-                <TextInput
-                    id="password"
-                    v-model="form.password"
-                    type="password"
-                    class="mt-1 block w-full"
-                    required
-                    autocomplete="current-password"
-                />
-                <InputError class="mt-2" :message="form.errors.password" />
-            </div>
+            <form @submit.prevent="submit">
+                <div class="inputField">
+                    <InputLabel for="email" value="E-mail:" />
+                    <TextInput
+                        id="email"
+                        v-model="form.email"
+                        type="email"
+                        class="form-control"
+                        required
+                        autofocus
+                        autocomplete="username"
+                    />
+                </div>
 
-            <div class="block mt-4">
-                <label class="flex items-center">
-                    <Checkbox v-model:checked="form.remember" name="remember" />
-                    <span class="ml-2 text-sm text-gray-600">Remember me</span>
-                </label>
-            </div>
+                <div class="inputField">
+                    <InputLabel for="password" value="Contraseña:" />
+                    <TextInput
+                        id="password"
+                        v-model="form.password"
+                        type="password"
+                        required
+                        class="form-control"
+                        autocomplete="current-password"
+                    />
+                </div>
 
-            <div class="flex items-center justify-end mt-4">
-                <Link v-if="canResetPassword" :href="route('password.request')" class="underline text-sm text-gray-600 hover:text-gray-900">
-                    Forgot your password?
-                </Link>
+                <InputError :message="form.errors.email" />
+                <InputError :message="form.errors.password" />
 
-                <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Log in
-                </PrimaryButton>
-            </div>
-        </form>
-    </AuthenticationCard>
+                <div class="loginChecks">
+                    <div>
+                        <Checkbox v-model:checked="form.remember" name="remember" />
+                            <span class="mx-2">Recordar</span>
+                    </div>
+                    <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                        Iniciar Sesión
+                    </PrimaryButton>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
 </template>
+
+<style>
+    #bgImage{
+        width: 100%;
+        height: 100vh;
+        background-image: url("/img/bg.webp");
+        position: absolute;
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        z-index: -1;
+    }
+
+    #loginZone{
+        width: 25%;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        margin: 0 auto;
+    }
+
+    #loginCard{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        height: auto;
+        background-color: white;
+        padding: 2em;
+        border-radius: 0.5em;
+    }
+
+    #loginCard .imgLogin{
+        height: auto;
+        width: 50%;
+    }
+
+    .loginContent{
+        margin-top: 1em;
+        width: 100%;
+    }
+
+    .inputField{
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        justify-content: center;
+        margin: 2em 0 2em 0;
+    }
+
+    .inputField label{
+        width: 30%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .inputField input{
+        width: 100%;
+    }
+
+    .loginChecks{
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .loginChecks div{
+        width: 40%;
+    }
+
+    @media (max-width: 1200px){
+        #loginZone{
+            width: 40%;
+        }
+    }
+    @media (max-width: 800px){
+        #loginZone{
+            width: 80%;
+        }
+    }
+</style>
