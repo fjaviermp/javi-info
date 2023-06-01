@@ -1,49 +1,39 @@
 <template>
     <app-layout v-bind:options="options">
-        <Head :title="('Administración')"></Head>
+        <Head :title="('Categorías')"></Head>
 
         <template #header>
-            Listado de categorias
+            Listado de categorías
         </template>
 
         <jet-bar-container>
-            <jet-bar-stats-container>
-                <jet-bar-stat-card title="Categorias creadas" number="9" type="info">
-                    <template v-slot:icon>
-                        <jet-bar-icon type="users" fill />
-                    </template>
-                </jet-bar-stat-card>
-
-                <jet-bar-stat-card title="Entradas Creadas" number="37" type="success">
-                    <template v-slot:icon>
-                        <jet-bar-icon type="users" fill />
-                    </template>
-                </jet-bar-stat-card>
-
-                <jet-bar-stat-card title="Formularios pendientes" number="0" type="warning">
-                    <template v-slot:icon>
-                        <jet-bar-icon type="users" fill />
-                    </template>
-                </jet-bar-stat-card>
-            </jet-bar-stats-container>
-
-            <jet-bar-table :headers="['Nombre', 'Descripcion', 'Estado', '']" >
-                <tr class="hover:bg-gray-50" v-for="index in 3" :key="index">
+            <jet-bar-table :headers="['Nombre', 'Descripcion', 'Estado', '', '']" >
+                <tr class="hover:bg-gray-50" v-for="category in categories">
                     <jet-bar-table-data>
-                        <span class="text-sm text-gray-900">Entrada de prueba {{ index }}</span>
+                        <span class="text-sm text-gray-900 font-semibold">{{ category.name }}</span>
                     </jet-bar-table-data>
                     <jet-bar-table-data>
-                        <div class="text-sm text-gray-600">Lorem ipsum dolor sit amet consectetur adipisicing elit... </div>
+                        <div v-if="category.desc" class="text-sm text-gray-600">{{ category.desc }} </div>
+                        <div v-else class="text-sm font-bold text-red-600"> NO DISPONILE </div>
                     </jet-bar-table-data>
                     <jet-bar-table-data>
-                        <jet-bar-badge text="Activado" type="success" />
+                        <jet-bar-badge v-if="category.active" text="Activado" type="success" />
+                        <jet-bar-badge v-else text="Desactivado" type="danger" />
                     </jet-bar-table-data>
                     <jet-bar-table-data>
-                        <inertia-link href="#" class="text-indigo-600 hover:text-indigo-900">Edit</inertia-link>
+                        <inertia-link :href="route('categories.editForm', { id: category.id })" class="no-underline text-indigo-600 hover:text-indigo-900">
+                            <i class="fa-solid fa-pencil"></i>
+                            <span class="pl-2">Modificar</span>
+                        </inertia-link>
+                    </jet-bar-table-data>
+                    <jet-bar-table-data>
+                        <inertia-link href="#" class="no-underline text-indigo-600 hover:text-indigo-900">
+                            <i class="fa-solid fa-trash-can text-red-600"></i>
+                            <span class="text-red-600 pl-2">Eliminar</span>
+                        </inertia-link>
                     </jet-bar-table-data>
                 </tr>
             </jet-bar-table>
-
         </jet-bar-container>
 
     </app-layout>
@@ -53,6 +43,7 @@
 <script setup>
     const props = defineProps({
         options: Object,
+        categories: Object,
     });
 </script>
 

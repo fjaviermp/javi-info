@@ -34,6 +34,8 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])
     })->name('profile.show');
 });
 
+
+//Rutas del panel de administración
 Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
     Route::controller(CategoriesController::class)->group(function () {
         Route::get('/test', 'get');
@@ -42,5 +44,19 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
         return Inertia::render('backOffice/Options', [
             'options' => OptionsController::getOptions()
         ]);
-    })->name('options.edit');
+    })->name('options.show');
+
+    // Toda la parte para las categorias
+    Route::get('/categories', function () {
+        return Inertia::render('backOffice/Categories', [
+            'options' => OptionsController::getOptions(),
+            'categories' => CategoriesController::index()
+        ]);
+    })->name('categories.show');
+
+    Route::get('/categories/edit/{id}', function (Request $request) {
+        return Inertia::render('backOffice/CategoriesForm', [
+            'options' => OptionsController::getOptions(),
+            'category' => CategoriesController::get($request->id)]);
+    })->name('categories.editForm');;
 });

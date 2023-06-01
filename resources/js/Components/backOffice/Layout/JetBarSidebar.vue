@@ -16,17 +16,29 @@
             </button>
         </div>
         <div v-show="showingNavigationDropdown" @click="showingNavigationDropdown = false" class="fixed inset-0 h-full w-full z-10" style="display: none;"></div>
-        <!-- Sidebar Links -->
+        
         <nav :class="{'block': showingNavigationDropdown, 'hidden': !showingNavigationDropdown}" class="flex-grow lg:block px-4 pb-4 lg:pb-0 lg:overflow-y-auto z-10">
-
-            <div class="hover:bg-gray-200 rounded-lg">
+            
+            <div class="navElement hover:bg-gray-200 rounded-lg">
                 <inertia-link :class="route().current('profile.show') ? 'bg-gray-200' : 'bg-transparent'" 
-                    class="no-underline block pr-2 py-2 mt-2 text-base font-semibold dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 focus:bg-gray-200 focus:outline-none focus:shadow-outline" :href="route('options.edit')">
+                    class="no-underline block pr-2 py-2 mt-2 text-base font-semibold dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 focus:bg-gray-200 focus:outline-none focus:shadow-outline" 
+                    :href="route('options.show')">
                     <i class="fa-solid fa-pen-ruler text-gray-900 pr-2"></i>
                     <span class="text-gray-900 text-base">Personalización</span>
                 </inertia-link>
             </div>
             
+            <hr>
+
+            <div class="navElement hover:bg-gray-200 rounded-lg">
+                <inertia-link :class="route().current('profile.show') ? 'bg-gray-200' : 'bg-transparent'" 
+                    class="no-underline block pr-2 py-2 mt-2 text-base font-semibold dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 focus:bg-gray-200 focus:outline-none focus:shadow-outline" 
+                    :href="route('categories.show')">
+                    <i class="fa-solid fa-book text-gray-900 pr-2"></i>
+                    <span class="text-gray-900 text-base">Categorías</span>
+                </inertia-link>
+            </div>
+
             <jet-bar-responsive-links />
 
         </nav>
