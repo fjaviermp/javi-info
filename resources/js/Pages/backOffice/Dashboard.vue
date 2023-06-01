@@ -1,55 +1,45 @@
 <template>
-    <app-layout>
+    <app-layout v-bind:options="options">
+        <Head :title="('Administración')"></Head>
+
         <template #header>
-            Dashboard
+            Resumen de la web
         </template>
 
         <jet-bar-container>
-
-            <jet-bar-stats-container >
-                <jet-bar-stat-card title="Total clients" number="6389" type="warning">
+            <jet-bar-stats-container>
+                <jet-bar-stat-card title="Categorias creadas" number="9" type="info">
                     <template v-slot:icon>
                         <jet-bar-icon type="users" fill />
                     </template>
                 </jet-bar-stat-card>
 
-                <jet-bar-stat-card title="Account balance" number="$ 46,760.89" type="success">
+                <jet-bar-stat-card title="Entradas Creadas" number="37" type="success">
                     <template v-slot:icon>
-                        <jet-bar-icon type="money" fill />
+                        <jet-bar-icon type="users" fill />
                     </template>
                 </jet-bar-stat-card>
 
-                <jet-bar-stat-card title="New sales" number="376" type="info">
+                <jet-bar-stat-card title="Formularios pendientes" number="0" type="warning">
                     <template v-slot:icon>
-                        <jet-bar-icon type="cart" fill />
-                    </template>
-                </jet-bar-stat-card>
-
-                <jet-bar-stat-card title="Pending contacts" number="35" type="danger">
-                    <template v-slot:icon>
-                        <jet-bar-icon type="message" fill />
+                        <jet-bar-icon type="users" fill />
                     </template>
                 </jet-bar-stat-card>
             </jet-bar-stats-container>
 
-            <jet-bar-table :headers="['name', 'title', 'status', 'role', '', '']" >
+            <jet-bar-table :headers="['Nombre', 'Descripcion', 'Estado', '']" >
                 <tr class="hover:bg-gray-50" v-for="index in 3" :key="index">
-                    <jet-bar-table-data>Jane Cooper</jet-bar-table-data>
                     <jet-bar-table-data>
-                        <div class="text-sm text-gray-900">Regional Paradigm Technician</div>
-                        <div class="text-sm text-gray-500">Optimization</div>
+                        <span class="text-sm text-gray-900">Entrada de prueba {{ index }}</span>
                     </jet-bar-table-data>
                     <jet-bar-table-data>
-                        <jet-bar-badge text="Active" type="success" />
+                        <div class="text-sm text-gray-600">Lorem ipsum dolor sit amet consectetur adipisicing elit... </div>
                     </jet-bar-table-data>
-                    <jet-bar-table-data>Admin</jet-bar-table-data>
+                    <jet-bar-table-data>
+                        <jet-bar-badge text="Activado" type="success" />
+                    </jet-bar-table-data>
                     <jet-bar-table-data>
                         <inertia-link href="#" class="text-indigo-600 hover:text-indigo-900">Edit</inertia-link>
-                    </jet-bar-table-data>
-                    <jet-bar-table-data>
-                        <inertia-link href="#" class="text-gray-400 hover:text-gray-500">
-                            <jet-bar-icon type="trash" fill />
-                        </inertia-link>
                     </jet-bar-table-data>
                 </tr>
             </jet-bar-table>
@@ -59,7 +49,16 @@
     </app-layout>
 </template>
 
+
+<script setup>
+    const props = defineProps({
+        options: Object,
+    });
+</script>
+
 <script>
+import { Head } from '@inertiajs/vue3';
+
 import AppLayout from '@/Layouts/AppLayout.vue'
 import JetBarContainer from "@/Components/backOffice/JetBarContainer.vue";
 import JetBarAlert from "@/Components/backOffice/JetBarAlert.vue";

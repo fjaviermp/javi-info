@@ -27,10 +27,20 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])
             'options' => OptionsController::getOptions()
         ]);
     })->name('dashboard');
+    Route::get('/user/profile', function () {
+        return Inertia::render('Profile/Show', [
+            'options' => OptionsController::getOptions()
+        ]);
+    })->name('profile.show');
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
     Route::controller(CategoriesController::class)->group(function () {
         Route::get('/test', 'get');
     });
+    Route::get('/options', function () {
+        return Inertia::render('backOffice/Options', [
+            'options' => OptionsController::getOptions()
+        ]);
+    })->name('options.edit');
 });

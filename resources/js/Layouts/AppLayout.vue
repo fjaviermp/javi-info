@@ -3,7 +3,7 @@
         <jet-banner />
 
         <div class="lg:flex flex-col lg:flex-row lg:min-h-screen w-full">
-            <jet-bar-sidebar />
+            <jet-bar-sidebar v-bind:options="options" />
 
             <div class="w-full">
                 <jet-bar-navigation-menu />
@@ -25,6 +25,12 @@
 
     </div>
 </template>
+
+<script setup>
+    const props = defineProps({
+        options: Object,
+    });
+</script>
 
 <script>
 import JetApplicationMark from '@/Components/backOffice/Layout/ApplicationMark.vue'
