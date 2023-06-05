@@ -31,4 +31,24 @@ class CategoriesController extends Controller{
 
         return to_route('categories.show');
     }
+
+    public static function create(Request $request){
+        $slug = Str::slug($request->name, "-");
+        $now =  Carbon::now();
+        DB::table('categories')->insert([
+            "name" => $request->name,
+            "slug" => $slug,
+            "desc" => $request->desc,
+            "active" => $request->checked,
+            "main" => $request->main,
+            "created_at" => $now,
+            "updated_at" => $now
+        ]);
+
+        return to_route('categories.show');
+    }
+
+    public static function delete(Request $request){
+        DB::table('categories')->where("id", $request->id)->delete();
+    }
 }

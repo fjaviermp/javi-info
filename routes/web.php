@@ -59,8 +59,20 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
             'options' => OptionsController::getOptions(),
             'category' => CategoriesController::get($request->id)]);
     })->name('categories.editForm');;
+    
+    Route::get('/categories/create', function (Request $request) {
+        return Inertia::render('backOffice/CategoriesForm', [
+            'options' => OptionsController::getOptions(),
+        ]);
+    })->name('categories.createForm');
 
     Route::post('/categories/update/', function (Request $request) {
         return CategoriesController::update($request);
+    });
+    Route::post('/categories/insert/', function (Request $request) {
+        return CategoriesController::create($request);
+    });
+    Route::post('/categories/delete/', function (Request $request) {
+        return CategoriesController::delete($request);
     });
 });

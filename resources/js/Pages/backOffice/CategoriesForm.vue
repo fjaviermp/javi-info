@@ -3,7 +3,12 @@
         <Head :title="('Categorías')"></Head>
 
         <template #header>
-            Editar categoria
+            <div v-if="props.category">
+                Editar categoria
+            </div>
+            <div v-else>
+                Crear categoría
+            </div>
         </template>
 
         <jet-bar-container>
@@ -64,16 +69,15 @@
                         </div>
                     </div>
 
-                    <div class="flex items-center justify-end px-4 py-3 bg-gray-50 text-right sm:px-6 shadow sm:rounded-bl-md sm:rounded-br-md">
-                        <div class="mr-3">
-                            <div class="text-sm text-gray-600" style="display: none;">
-                                Saved. 
-                            </div>
-                        </div>
+                    <div class="flex justify-between px-4 py-3 bg-gray-50 text-right sm:px-6 shadow sm:rounded-bl-md sm:rounded-br-md">
+                        
+                        <inertia-link href="/admin/categories" class="justify-start flex no-underline text-indigo-600 hover:text-indigo-900">
+                            <button class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">Cancelar</button>
+                        </inertia-link>
 
-                        <button type="submit" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">
-                            Guardar
-                        </button>
+                        <div class="flex justify-end">
+                            <button type="submit" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">Guardar</button>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -87,28 +91,36 @@
     const props = defineProps({
         options: Object,
         category: Object,
-        pillComponent: String,
     });
-
-    var check = false;
-    if (props.category[0].active == 1)
-        check = true
-
-    var inMenu = false;
-    if (props.category[0].main == 1)
-        inMenu = true
     
+    var check = false;
+    var inMenu = false;
+    if (props.category) {
+        if (props.category[0].active == 1)
+            check = true
+
+        if (props.category[0].main == 1)
+            inMenu = true
+
+        var formId = props.category[0].id
+        var formName = props.category[0].name
+        var formDesc = props.category[0].desc
+    }  
+
     const form = useForm({
-        id: props.category[0].id,
-        name: props.category[0].name,
-        desc: props.category[0].desc,
+        id: formId,
+        name: formName,
+        desc: formDesc,
         checked: check,
         main: inMenu,
-    })
+    })  
+
 
     function submit() {
-        router.post('/admin/categories/update/', form)
-        console.log(form);
+        if (props.category)
+            router.post('/admin/categories/update/', form)
+        else
+            router.post('/admin/categories/insert/', form)
     }
 </script>
 
