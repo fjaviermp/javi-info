@@ -13,7 +13,8 @@
                         <span class="text-sm text-gray-900 font-semibold">{{ category.name }}</span>
                     </jet-bar-table-data>
                     <jet-bar-table-data>
-                        <div v-if="category.desc" class="text-sm text-gray-600">{{ category.desc }} </div>
+                        <div v-if="category.desc.length > 71" class="text-sm text-gray-600">{{ category.desc.substr(0, 75) + " ..." }} </div>
+                        <div v-else-if="category.desc.length <= 71 && category.desc.length > 0" class="text-sm text-gray-600">{{ category.desc }} </div>
                         <div v-else class="text-sm font-bold text-red-600"> NO DISPONILE </div>
                     </jet-bar-table-data>
                     <jet-bar-table-data>
