@@ -19,7 +19,7 @@ Route::get('/contacto', function () {
     ]);
 });
 
-Route::get('/getOptions', function () {return OptionsController::getOptions();});
+Route::get('/getoptions', function () {return OptionsController::getOptions();});
 
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])->group(function () {
     Route::get('/dashboard', function () {

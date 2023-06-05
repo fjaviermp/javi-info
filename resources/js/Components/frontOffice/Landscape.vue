@@ -1,7 +1,7 @@
 <script>
     export default ({
         async setup() {
-            const landscape = await fetch("/getOptions")
+            const landscape = await fetch("/getoptions")
                 .then(res => res.json())
                 .then(res => res)
             return {

@@ -6,7 +6,7 @@
             Link,
         },
         async setup() {
-            const title = await fetch("/getOptions")
+            const title = await fetch("/getoptions")
                 .then(res => res.json())
                 .then(res => res.web_title)
             return {
