@@ -19,7 +19,7 @@ Route::get('/contacto', function () {
     ]);
 });
 
-Route::get('/getOptions','OptionsController@getOptions');
+Route::get('/getOptions', function () {return OptionsController::getOptions();});
 
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])->group(function () {
     Route::get('/dashboard', function () {
@@ -59,4 +59,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
             'options' => OptionsController::getOptions(),
             'category' => CategoriesController::get($request->id)]);
     })->name('categories.editForm');;
+
+    Route::post('/categories/update/', function (Request $request) {
+        return CategoriesController::update($request);
+    });
 });

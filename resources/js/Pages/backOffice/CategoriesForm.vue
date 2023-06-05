@@ -8,26 +8,48 @@
 
         <jet-bar-container>
             <div class="mt-1 md:mt-0 md:col-span-2">
-                <form>
+                <form @submit.prevent="submit">
                     <div class="px-4 py-5 bg-white sm:p-6 shadow sm:rounded-tl-md sm:rounded-tr-md">
                         <div class="grid grid-cols-6 gap-6">
 
-                            <div class="col-span-4 sm:col-span-2">
+                            <div class="col-span-4 sm:col-span-1">
                                 <label class="block font-medium text-sm text-gray-700" for="name">
                                         <span>ID:</span>
                                 </label>
                                 <input
                                     class="disabled:opacity-50 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full"
-                                    id="id" type="text" disabled="disabled"  v-model="form.id">
+                                    name="id" id="id" type="text" disabled="disabled"  v-model="form.id">
                             </div>
 
-                            <div class="col-span-4 sm:col-span-4">
+                            <div class="col-span-4 sm:col-span-1">
+                                <label class="block font-medium text-sm text-gray-700" for="name">
+                                        <span>Activado/Bloqueado:</span>
+                                </label>
+                                <div class="flex items-center h-100">
+                                    <input v-model="form.checked" name="enabled" id="enabled" type="checkbox" class="mr-3 w-4 h-4 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:border-gray-600">
+                                    <jet-bar-badge v-show="form.checked" text="Activado" type="success" />
+                                    <jet-bar-badge v-show="!form.checked" text="Desactivado" type="danger" /> 
+                                </div>
+                            </div>
+
+                            <div class="col-span-4 sm:col-span-1">
+                                <label class="block font-medium text-sm text-gray-700" for="name">
+                                        <span>Destacado en menu:</span>
+                                </label>
+                                <div class="flex items-center h-100">
+                                    <input v-model="form.main" name="main" id="main" type="checkbox" class="mr-3 w-4 h-4 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:border-gray-600">
+                                    <jet-bar-badge v-show="form.main" text="Destacado" type="success" />
+                                    <jet-bar-badge v-show="!form.main" text="No destacado" type="danger" /> 
+                                </div>
+                            </div>
+
+                            <div class="col-span-4 sm:col-span-3">
                                 <label class="block font-medium text-sm text-gray-700" for="name">
                                         <span>Nombre</span>
                                 </label>
                                 <input
                                     class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full"
-                                    id="name" type="text" autocomplete="name" v-model="form.name">
+                                    name="name" id="name" type="text" autocomplete="name" v-model="form.name">
                             </div>
 
                             <div class="col-span-4 sm:col-span-6">
@@ -36,7 +58,7 @@
                                 </label>
                                 <input 
                                     class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full"
-                                    id="desc" type="text" autocomplete="username" v-model="form.desc">
+                                    name="desc" id="desc" type="text" autocomplete="username" v-model="form.desc">
                             </div>
 
                         </div>
@@ -65,19 +87,36 @@
     const props = defineProps({
         options: Object,
         category: Object,
+        pillComponent: String,
     });
+
+    var check = false;
+    if (props.category[0].active == 1)
+        check = true
+
+    var inMenu = false;
+    if (props.category[0].main == 1)
+        inMenu = true
     
     const form = useForm({
-        id: "3",
-        name: "si",
-        desc: "Si y solo si",
+        id: props.category[0].id,
+        name: props.category[0].name,
+        desc: props.category[0].desc,
+        checked: check,
+        main: inMenu,
     })
+
+    function submit() {
+        router.post('/admin/categories/update/', form)
+        console.log(form);
+    }
 </script>
 
 <script>
 import { Head } from '@inertiajs/vue3';
 
 import { useForm } from '@inertiajs/vue3'
+import { router } from '@inertiajs/vue3'
 
 import AppLayout from '@/Layouts/AppLayout.vue'
 import JetBarContainer from "@/Components/backOffice/JetBarContainer.vue";
@@ -101,5 +140,7 @@ export default {
         JetBarBadge,
         JetBarIcon,
     },
+    methods: {
+    }
 }
 </script>
