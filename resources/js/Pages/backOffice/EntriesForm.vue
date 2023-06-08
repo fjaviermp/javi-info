@@ -1,0 +1,161 @@
+<template>
+    <app-layout v-bind:options="options">
+        <Head :title="('Entradas')"></Head>
+
+        <template #header>
+            <div v-if="props.entry">
+                Editar Entrada
+            </div>
+            <div v-else>
+                Crear Entrada
+            </div>
+        </template>
+
+        <jet-bar-container>
+            <div class="mt-1 md:mt-0 md:col-span-2">
+                <form @submit.prevent="submit">
+                    <div class="px-4 py-5 bg-white sm:p-6 shadow sm:rounded-tl-md sm:rounded-tr-md">
+                        <div class="grid grid-cols-6 gap-6">
+
+                            <div class="col-span-3 sm:col-span-1">
+                                <label class="block font-medium text-sm text-gray-700" for="name">
+                                        <span>ID:</span>
+                                </label>
+                                <input
+                                    class="disabled:opacity-50 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full"
+                                    name="id" id="id" type="text" disabled="disabled"  v-model="form.id">
+                            </div>
+
+                            <div class="col-span-3 sm:col-span-1 flex flex-column justify-between wrap flex-column">
+                                <label class="block font-medium text-sm text-gray-700" for="name">
+                                        <span>Categoria</span>
+                                </label>
+                                <select v-model="form.category" id="category" name="category" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                                    <option v-for="category in categories"  :value="category.id">{{ category.name }}</option>
+                                </select>
+                            </div>
+
+                            <div class="col-span-4 sm:col-span-4">
+                                <label class="block font-medium text-sm text-gray-700" for="name">
+                                        <span>Nombre</span>
+                                </label>
+                                <input
+                                    class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full"
+                                    name="name" id="name" type="text" autocomplete="name" v-model="form.name">
+                            </div>
+
+                            <div class="col-span-4 sm:col-span-6">
+                                <label class="block font-medium text-sm text-gray-700" for="desc">
+                                    <span>Descripción</span>
+                                </label>
+                                <input 
+                                    class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full"
+                                    name="desc" id="desc" type="text" autocomplete="desc" v-model="form.desc">
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <Editor id="content" name="content" v-model="form.content"
+                    api-key="no-api-key"
+                    :init="{
+                        plugins: 'lists link image table code help wordcount'
+                    }"
+                    />
+
+                    <div class="flex justify-between px-4 py-3 bg-gray-50 text-right sm:px-6 shadow sm:rounded-bl-md sm:rounded-br-md">
+                        
+                        <inertia-link href="/admin/entries" class="justify-start flex no-underline text-indigo-600 hover:text-indigo-900">
+                            <button class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">Cancelar</button>
+                        </inertia-link>
+
+                        <div class="flex justify-end">
+                            <button type="submit" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">Guardar</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </jet-bar-container>
+
+    </app-layout>
+</template>
+
+
+<script setup>
+    const props = defineProps({
+        options: Object,
+        entry: Object,
+        categories: Object,
+    });
+    
+    if (props.entry) {
+        var formId = props.entry[0].id
+        var formName = props.entry[0].name
+        var formCategory = props.entry[0].category
+        var formDesc = props.entry[0].desc
+        var formContent = props.entry[0].content
+    }  
+
+    const form = useForm({
+        id: formId,
+        name: formName,
+        desc: formDesc,
+        content: formContent,
+        category: formCategory,
+    })  
+
+
+    function submit() {
+        if (props.entry)
+            router.post('/admin/entries/update/', form)
+        else
+            router.post('/admin/entries/insert/', form)
+    }
+</script>
+
+<script>
+import { Head } from '@inertiajs/vue3';
+
+import { useForm } from '@inertiajs/vue3'
+import { router } from '@inertiajs/vue3'
+
+import AppLayout from '@/Layouts/AppLayout.vue'
+import JetBarContainer from "@/Components/backOffice/JetBarContainer.vue";
+import JetBarAlert from "@/Components/backOffice/JetBarAlert.vue";
+import JetBarStatsContainer from "@/Components/backOffice/Stat/JetBarStatsContainer.vue";
+import JetBarStatCard from "@/Components/backOffice/Stat/JetBarStatCard.vue";
+import JetBarTable from "@/Components/backOffice/Table/JetBarTable.vue";
+import JetBarTableData from "@/Components/backOffice/Table/JetBarTableData.vue";
+import JetBarBadge from "@/Components/backOffice/JetBarBadge.vue";
+import JetBarIcon from "@/Components/backOffice/JetBarIcon.vue";
+import Editor from '@tinymce/tinymce-vue'
+
+
+export default {
+    components: {
+        AppLayout,
+        JetBarContainer,
+        JetBarAlert,
+        JetBarStatsContainer,
+        JetBarStatCard,
+        JetBarTable,
+        JetBarTableData,
+        JetBarBadge,
+        JetBarIcon,
+    },
+    methods: {
+    },
+}
+</script>
+
+<style>
+.tox-tinymce{
+    border-top: 2px  solid grey !important; 
+    border-radius: 0 !important;
+}
+
+ .tox-notification.tox-notification--in.tox-notification--warning, .tox-statusbar__branding{
+    display: none;
+ }
+</style>

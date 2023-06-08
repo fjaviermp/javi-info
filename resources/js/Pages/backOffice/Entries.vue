@@ -1,5 +1,5 @@
 <template>
-    <Head :title="('Categorías')"></Head>
+    <Head :title="('Entradas')"></Head>
 
     <div v-show="this.popDelete" id="bgPopup">
         <div id="popup">
@@ -8,9 +8,9 @@
             </div>
             <div id="popContent" class="flex flex-column w-full justify-center m-auto w-5/6">
 
-                <h2 class="text-center">¿Estás seguro de que deseas eliminar esta categoría?</h2>
+                <h2 class="text-center">¿Estás seguro de que deseas eliminar esta entrada?</h2>
                 <h3 class="text-center">Si lo haces, no podrás recuperar sus datos y se perderán para siempre</h3>
-                <h3 class="text-center">Además, las entradas de esta categoría pasarán a estar sin categoría y se quitarán del menu</h3>
+                <h3 class="text-center">Unicamente las imágenes que hayas subido se mantendrán</h3>
 
 
                 <div class="flex flex-row w-full justify-around mt-5">
@@ -25,55 +25,61 @@
             </div>
         </div>
     </div>
+
     <app-layout v-bind:options="options">
         <template #header>
-            Listado de categorías
+            Entradas del Blog
         </template>
 
-
         <jet-bar-container>
-            <inertia-link href="categories/create" class="mb-3 justify-end flex no-underline text-indigo-600 hover:text-indigo-900">
+            <inertia-link href="entries/create" class="mb-3 justify-end flex no-underline text-indigo-600 hover:text-indigo-900">
                 <button class="p-3 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition"><i class="fa-solid fa-plus"></i> | Crear CATEGORÍA</button>
             </inertia-link>
 
-            <jet-bar-table :headers="['Nombre', 'Descripcion', 'Estado', '', '']" >
-                <tr :id="'category'+category.id" class="hover:bg-gray-50" v-for="category in categories">
+            <jet-bar-table :headers="['Nombre', 'Autor', 'Descripción', 'Categoría', '', '']" >
+                <tr :id="'entry'+entry.id" class="hover:bg-gray-50" v-for="entry in entries">
                     <jet-bar-table-data>
-                        <span class="text-sm text-gray-900 font-semibold">{{ category.name }}</span>
+                        <span class="text-sm text-gray-900 font-semibold">{{ entry.name }}</span>
                     </jet-bar-table-data>
+
                     <jet-bar-table-data>
-                        <div v-if="category.desc.length > 71" class="text-sm text-gray-600">{{ category.desc.substr(0, 75) + " ..." }} </div>
-                        <div v-else-if="category.desc.length <= 71 && category.desc.length > 0" class="text-sm text-gray-600">{{ category.desc }} </div>
+                        <span class="text-sm text-gray-900 font-semibold">{{ entry.author }}</span>
+                    </jet-bar-table-data>
+
+                    <jet-bar-table-data>
+                        <div v-if="entry.desc.length > 71" class="text-sm text-gray-600">{{ entry.desc.substr(0, 75) + " ..." }} </div>
+                        <div v-else-if="entry.desc.length <= 71 && entry.desc.length > 0" class="text-sm text-gray-600">{{ entry.desc }} </div>
                         <div v-else class="text-sm font-bold text-red-600"> NO DISPONILE </div>
                     </jet-bar-table-data>
+
                     <jet-bar-table-data>
-                        <jet-bar-badge v-if="category.active" text="Activado" type="success" />
-                        <jet-bar-badge v-else text="Desactivado" type="danger" />
+                        <span class="text-sm text-gray-900 font-semibold">{{ entry.catname }}</span>
                     </jet-bar-table-data>
+
                     <jet-bar-table-data>
-                        <inertia-link :href="route('categories.editForm', { id: category.id })" class="no-underline text-indigo-600 hover:text-indigo-900">
+                        <inertia-link :href="route('entries.editForm', { id: entry.id })" class="no-underline text-indigo-600 hover:text-indigo-900">
                             <i class="fa-solid fa-pencil"></i>
                             <span class="pl-2">Modificar</span>
                         </inertia-link>
                     </jet-bar-table-data>
+
                     <jet-bar-table-data>
-                        <div @click="confirmDelete(category.id)" class="no-underline text-indigo-600 hover:text-indigo-900 hover:cursor-pointer">
+                        <div @click="confirmDelete(entry.id)" class="no-underline text-indigo-600 hover:text-indigo-900 hover:cursor-pointer">
                             <i class="fa-solid fa-trash-can text-red-600"></i>
                             <span class="text-red-600 pl-2">Eliminar</span>
                         </div>
                     </jet-bar-table-data>
+
                 </tr>
             </jet-bar-table>
         </jet-bar-container>
-
     </app-layout>
 </template>
-
 
 <script setup>
     const props = defineProps({
         options: Object,
-        categories: Object,
+        entries: Object,
     });
 
 </script>
@@ -133,7 +139,7 @@ export default {
 
             })
             .then(response => {
-                document.getElementById("category"+id).remove();
+                document.getElementById("entry"+id).remove();
             })
         }
     }
