@@ -1,6 +1,8 @@
 <template>
     <app-layout v-bind:options="options">
-        <Head :title="('Entradas')"></Head>
+        <Head :title="('Entradas')">
+            <meta name="csrf-token" :content="this.$page.props.csrf_token">
+        </Head>
 
         <template #header>
             <div v-if="props.entry">
@@ -53,15 +55,12 @@
                                     name="desc" id="desc" type="text" autocomplete="desc" v-model="form.desc">
                             </div>
 
+                            <div class="col-span-6 sm:col-span-6">
+                                <ckeditor :editor="editor.editor" v-model="form.text"></ckeditor>
+                            </div>
+
                         </div>
                     </div>
-
-                    <Editor id="content" name="content" v-model="form.content"
-                    api-key="no-api-key"
-                    :init="{
-                        plugins: 'lists link image table code help wordcount'
-                    }"
-                    />
 
                     <div class="flex justify-between px-4 py-3 bg-gray-50 text-right sm:px-6 shadow sm:rounded-bl-md sm:rounded-br-md">
                         
@@ -120,6 +119,8 @@ import { Head } from '@inertiajs/vue3';
 import { useForm } from '@inertiajs/vue3'
 import { router } from '@inertiajs/vue3'
 
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic"
+
 import AppLayout from '@/Layouts/AppLayout.vue'
 import JetBarContainer from "@/Components/backOffice/JetBarContainer.vue";
 import JetBarAlert from "@/Components/backOffice/JetBarAlert.vue";
@@ -129,12 +130,11 @@ import JetBarTable from "@/Components/backOffice/Table/JetBarTable.vue";
 import JetBarTableData from "@/Components/backOffice/Table/JetBarTableData.vue";
 import JetBarBadge from "@/Components/backOffice/JetBarBadge.vue";
 import JetBarIcon from "@/Components/backOffice/JetBarIcon.vue";
-import Editor from '@tinymce/tinymce-vue'
-
 
 export default {
     components: {
         AppLayout,
+        ClassicEditor,
         JetBarContainer,
         JetBarAlert,
         JetBarStatsContainer,
@@ -144,18 +144,12 @@ export default {
         JetBarBadge,
         JetBarIcon,
     },
-    methods: {
+    data() {
+        return {
+            editor: {
+                editor: ClassicEditor
+            }
+        }
     },
 }
 </script>
-
-<style>
-.tox-tinymce{
-    border-top: 2px  solid grey !important; 
-    border-radius: 0 !important;
-}
-
- .tox-notification.tox-notification--in.tox-notification--warning, .tox-statusbar__branding{
-    display: none;
- }
-</style>

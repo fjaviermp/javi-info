@@ -7,6 +7,7 @@ import { createApp, h } from 'vue';
 import { createInertiaApp,Head,Link } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
+import CKEditor from '@ckeditor/ckeditor5-vue';
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || env('APP_NAME', 'fallback_app_name');
 
@@ -17,6 +18,7 @@ createInertiaApp({
         return createApp({ render: () => h(App, props) })
             .use(plugin)
             .use(ZiggyVue, Ziggy)
+            .use(CKEditor)
             .component('InertiaHead', Head)
             .component('inertia-link', Link)
             .mount(el);

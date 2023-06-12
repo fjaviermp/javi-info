@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\OptionsController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\EntriesController;
-
+use App\Http\Controllers\ImageController;
 
 
 Route::get('/', function () {
@@ -107,4 +107,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
         return CategoriesController::delete($request);
     });
 
+    //Subir una imagen
+    Route::post('/images/upload/', function (Request $request) {
+        return ImageController::store($request);
+    });
 });

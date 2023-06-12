@@ -23,6 +23,8 @@
         "vue": "^3.2.31"
     },
     "dependencies": {
+        "@ckeditor/ckeditor5-build-classic": "^38.0.1",
+        "@ckeditor/ckeditor5-vue": "^5.1.0",
         "@fortawesome/vue-fontawesome": "^3.0.3",
         "@inertiajs/inertia": "^0.11.1",
         "@inertiajs/inertia-vue3": "^0.6.0",
@@ -32,7 +34,6 @@
         "bootstrap-vue": "^2.23.1",
         "jquery": "^3.6.4",
         "npm-watch": "^0.11.0",
-        "popper.js": "^1.16.1",
-        "tinymce": "^6.4.2"
+        "popper.js": "^1.16.1"
     }
 }
