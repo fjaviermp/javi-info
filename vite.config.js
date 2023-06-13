@@ -15,6 +15,7 @@ export default defineConfig({
                     includeAbsolute: false,
                 },
                 compilerOptions: {
+                    target: "ES6",
                     isCustomElement: (tag) => ['md-linedivider'].includes(tag),
                 },
             },
