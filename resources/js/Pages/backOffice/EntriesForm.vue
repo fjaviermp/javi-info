@@ -56,8 +56,6 @@
                             </div>
 
                             <div class="col-span-6 sm:col-span-6">
-                                <div id="editor"></div>
-                                <ClassicEditor :editor="editor.editor" v-model="form.text"></ClassicEditor>
                             </div>
 
                         </div>
@@ -120,8 +118,6 @@ import { Head } from '@inertiajs/vue3';
 import { useForm } from '@inertiajs/vue3'
 import { router } from '@inertiajs/vue3'
 
-import * as ClassicEditor from '@/ckeditor5/build/ckeditor/';
-
 import AppLayout from '@/Layouts/AppLayout.vue'
 import JetBarContainer from "@/Components/backOffice/JetBarContainer.vue";
 import JetBarAlert from "@/Components/backOffice/JetBarAlert.vue";
@@ -135,7 +131,6 @@ import JetBarIcon from "@/Components/backOffice/JetBarIcon.vue";
 export default {
     components: {
         AppLayout,
-        ClassicEditor,
         JetBarContainer,
         JetBarAlert,
         JetBarStatsContainer,
@@ -147,22 +142,7 @@ export default {
     },
     data() {
         return {
-            editor: {
-                editor: ClassicEditor,
-            },
-            editorConfig: {
-                toolbar: {
-                    items: [
-                        'undo', 'redo',
-                        '|', 'heading',
-                        '|', 'alignment',
-                        '|', 'bold', 'italic',
-                        '|', 'link', 'blockQuote',
-                        '|', 'bulletedList', 'numberedList', 'outdent', 'indent'
-                    ],
-                    shouldNotGroupWhenFull: false
-                }
-            }
+        
         }
     },
 }
