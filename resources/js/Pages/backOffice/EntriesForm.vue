@@ -56,6 +56,7 @@
                             </div>
 
                             <div class="col-span-6 sm:col-span-6">
+                                <QuillEditor contentType="html" v-model:content="form.content" :modules="modules" :toolbar="toolbar" theme="snow" />
                             </div>
 
                         </div>
@@ -118,6 +119,13 @@ import { Head } from '@inertiajs/vue3';
 import { useForm } from '@inertiajs/vue3'
 import { router } from '@inertiajs/vue3'
 
+import axios from 'axios';
+
+import { QuillEditor } from '@vueup/vue-quill'
+import '@vueup/vue-quill/dist/vue-quill.snow.css';
+import ImageUploader from 'quill-image-uploader';
+import 'quill-image-uploader/dist/quill.imageUploader.min.css';
+
 import AppLayout from '@/Layouts/AppLayout.vue'
 import JetBarContainer from "@/Components/backOffice/JetBarContainer.vue";
 import JetBarAlert from "@/Components/backOffice/JetBarAlert.vue";
@@ -130,6 +138,7 @@ import JetBarIcon from "@/Components/backOffice/JetBarIcon.vue";
 
 export default {
     components: {
+        QuillEditor,
         AppLayout,
         JetBarContainer,
         JetBarAlert,
@@ -142,7 +151,46 @@ export default {
     },
     data() {
         return {
-        
+            modules: {
+                name: 'imageUploader',
+                module: ImageUploader,
+                options: {
+                    upload: file => {
+                        var formData = new FormData();
+                        formData.append("image", file);
+                        
+                        fetch(`/admin/images/upload/`, {
+                            method: 'POST',
+                            body: formData
+                        })
+                        .then((response) => response.json())
+                        .then((data) => {
+                            console.log(data);
+                            //Borramos la animacion de subida por defecto del modulo
+                            let uploading = document.getElementsByClassName("image-uploading");
+                            while(uploading.length > 0){
+                                uploading[0].parentNode.removeChild(uploading[0]);
+                            }
+                            //Nueva imagen se aniade de forma manual
+                            var img = document.createElement("img");
+                            img.src = "/img/assets/" + data.imgName;
+                            document.getElementsByClassName("ql-editor")[0].appendChild(img);;
+                        })
+                        .catch(error => console.log(error));
+                        
+                    }
+                },
+            },
+            toolbar: [
+                [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+                ['bold', 'italic', 'underline', 'strike'],
+                [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                [{ 'align': [] }],
+                ['link', 'image'],
+                ['blockquote', 'code-block'],
+                [{ 'script': 'sub'}, { 'script': 'super' }],
+
+            ]
         }
     },
 }
