@@ -19,13 +19,16 @@ class EntriesController extends Controller{
     public static function store(Request $request){
         $slug = Str::slug($request->name, "-");
         $date = Carbon::now();
+        $content = $request->content;
+        if ($content == NULL)
+            $content = "";
 
         DB::table('entries')->insert([
             "name" => $request->name,
             "slug" => $slug,
             "author" => Auth::user()->name,
             "desc" => $request->desc,
-            "content" => $request->content,
+            "content" => $content,
             "category" => $request->category,
             "created_at" => $date,
             "updated_at" => $date,

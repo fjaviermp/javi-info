@@ -32,7 +32,7 @@
                                 <label class="block font-medium text-sm text-gray-700" for="name">
                                         <span>Categoria</span>
                                 </label>
-                                <select v-model="form.category" id="category" name="category" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                                <select required="required" v-model="form.category" id="category" name="category" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                                     <option v-for="category in categories"  :value="category.id">{{ category.name }}</option>
                                 </select>
                             </div>
@@ -43,7 +43,7 @@
                                 </label>
                                 <input
                                     class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full"
-                                    name="name" id="name" type="text" autocomplete="name" v-model="form.name">
+                                    required="required" name="name" id="name" type="text" autocomplete="name" v-model="form.name">
                             </div>
 
                             <div class="col-span-4 sm:col-span-6">
@@ -52,7 +52,7 @@
                                 </label>
                                 <input 
                                     class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full"
-                                    name="desc" id="desc" type="text" autocomplete="desc" v-model="form.desc">
+                                    required="required" name="desc" id="desc" type="text" autocomplete="desc" v-model="form.desc">
                             </div>
 
                             <div class="col-span-6 sm:col-span-6">
