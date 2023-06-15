@@ -77,6 +77,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
     Route::post('/categories/delete/', function (Request $request) {
         return CategoriesController::delete($request);
     });
+    Route::post('/categories/search/', function (Request $request) {
+        return CategoriesController::search($request);
+    });
 
     // Toda la parte para las entradas
     Route::get('/entries', function () {

@@ -56,4 +56,9 @@ class CategoriesController extends Controller{
     public static function delete(Request $request){
         DB::table('categories')->where("id", $request->id)->delete();
     }
+
+    public static function search(Request $request){
+        $search = DB::table('categories')->where('name', $request->search)->get();
+        return $search;
+    }
 }

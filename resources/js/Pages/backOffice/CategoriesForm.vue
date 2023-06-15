@@ -54,7 +54,7 @@
                                 </label>
                                 <input
                                     class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full"
-                                    required="required" name="name" id="name" type="text" autocomplete="name" v-model="form.name">
+                                    required="required" name="name" id="name" type="text" autocomplete="name" v-model="form.name" @keyup="searchExist">
                             </div>
 
                             <div class="col-span-4 sm:col-span-6">
@@ -76,7 +76,7 @@
                         </inertia-link>
 
                         <div class="flex justify-end">
-                            <button type="submit" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">Guardar</button>
+                            <button id="sendFormBtn" type="submit" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">Guardar</button>
                         </div>
                     </div>
                 </form>
@@ -95,7 +95,7 @@
     
     var check = false;
     var inMenu = false;
-    
+
     if (props.category) {
         if (props.category[0].active == 1)
             check = true
@@ -154,6 +154,35 @@ export default {
         JetBarIcon,
     },
     methods: {
+        async searchExist() {
+            fetch("/admin/categories/search/", {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                method: "POST",
+                body: JSON.stringify({
+                    '_token': this.$page.props.csrf_token,
+                    "search": document.getElementById("name").value,
+                })
+            })
+            .then(r => r.json())
+            .then(response => {
+                //Veremos si ya existe ese nombre o no
+                if (response.length >= 1){
+                    document.getElementById("name").classList.add("repeatedName");
+                    document.getElementById("sendFormBtn").disabled = true;
+                }else{
+                    document.getElementById("name").classList.remove("repeatedName");
+                    document.getElementById("sendFormBtn").disabled = false;
+                }
+        });
+        }
     }
 }
 </script>
+
+<style scoped>
+    .repeatedName{
+        outline: 2px solid red;
+    }
+</style>
