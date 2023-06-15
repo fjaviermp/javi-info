@@ -16,7 +16,15 @@
         <Head :title="('Inicio')"></Head>
         <Navbar :categories="categories" :title="options.web_title"></Navbar>
         <Landscape :title="options.home_title" :subtitle="options.home_subtitle" :btnText="options.home_btnText" :image="'../img/'+options.home_image"></Landscape>
-        <Characteristics></Characteristics>
+        <section class="features-section">
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <Characteristics :icon="options.home_btn1_icon" :title="options.home_btn1_title" :text="options.home_btn1_text"></Characteristics>
+                    <Characteristics :icon="options.home_btn2_icon" :title="options.home_btn2_title" :text="options.home_btn2_text"></Characteristics>
+                    <Characteristics :icon="options.home_btn3_icon" :title="options.home_btn3_title" :text="options.home_btn3_text"></Characteristics>
+                </div>
+            </div>
+        </section>
         <About></About>
         <Footer></Footer>
 </template>
