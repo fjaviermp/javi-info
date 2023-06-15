@@ -12,7 +12,10 @@ use App\Http\Controllers\ImageController;
 
 
 Route::get('/', function () {
-    return Inertia::render('frontOffice/Home');
+    return Inertia::render('frontOffice/Home', [
+        'options' => OptionsController::getOptions(),
+        'categories' => CategoriesController::index()
+    ]);
 });
 
 Route::get('/contacto', function () {

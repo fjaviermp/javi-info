@@ -17,8 +17,8 @@ class CategoriesSeeder extends Seeder{
                 'desc' => '',
                 'active' => 1,
                 'main' => 1,
-                'created_at' => '2023-05-30 13:51:00',
-                'updated_at' => '2023-05-30 13:51:00',
+                'created_at' => '2023-05-30 13:51:01',
+                'updated_at' => '2023-05-30 13:51:01',
             ),
             1 => 
             array (
@@ -28,8 +28,8 @@ class CategoriesSeeder extends Seeder{
                 'desc' => '',
                 'active' => 1,
                 'main' => 1,
-                'created_at' => '2023-05-30 13:51:00',
-                'updated_at' => '2023-05-30 13:51:00',
+                'created_at' => '2023-05-30 13:51:02',
+                'updated_at' => '2023-05-30 13:51:02',
             ),
             2 => 
             array (
@@ -39,8 +39,8 @@ class CategoriesSeeder extends Seeder{
                 'desc' => '',
                 'active' => 1,
                 'main' => 1,
-                'created_at' => '2023-05-30 13:51:00',
-                'updated_at' => '2023-05-30 13:51:00',
+                'created_at' => '2023-05-30 13:51:03',
+                'updated_at' => '2023-05-30 13:51:03',
             ),
             3 => 
             array (
@@ -50,8 +50,8 @@ class CategoriesSeeder extends Seeder{
                 'desc' => '',
                 'active' => 1,
                 'main' => 1,
-                'created_at' => '2023-05-30 13:51:00',
-                'updated_at' => '2023-05-30 13:51:00',
+                'created_at' => '2023-05-30 13:51:04',
+                'updated_at' => '2023-05-30 13:51:04',
             ),
             4 => 
             array (
@@ -61,8 +61,8 @@ class CategoriesSeeder extends Seeder{
                 'desc' => '',
                 'active' => 1,
                 'main' => 1,
-                'created_at' => '2023-05-30 13:51:00',
-                'updated_at' => '2023-05-30 13:51:00',
+                'created_at' => '2023-05-30 13:51:05',
+                'updated_at' => '2023-05-30 13:51:05',
             ),
             5 => 
             array (
@@ -72,8 +72,8 @@ class CategoriesSeeder extends Seeder{
                 'desc' => '',
                 'active' => 1,
                 'main' => 1,
-                'created_at' => '2023-05-30 13:51:00',
-                'updated_at' => '2023-05-30 13:51:00',
+                'created_at' => '2023-05-30 13:51:06',
+                'updated_at' => '2023-05-30 13:51:06',
             ),
             6 => 
             array (
@@ -83,8 +83,8 @@ class CategoriesSeeder extends Seeder{
                 'desc' => '',
                 'active' => 1,
                 'main' => 1,
-                'created_at' => '2023-05-30 13:51:00',
-                'updated_at' => '2023-05-30 13:51:00',
+                'created_at' => '2023-05-30 13:51:07',
+                'updated_at' => '2023-05-30 13:51:07',
             ),
             7 => 
             array (
@@ -94,8 +94,8 @@ class CategoriesSeeder extends Seeder{
                 'desc' => '',
                 'active' => 1,
                 'main' => 1,
-                'created_at' => '2023-05-30 13:51:00',
-                'updated_at' => '2023-05-30 13:51:00',
+                'created_at' => '2023-05-30 13:51:08',
+                'updated_at' => '2023-05-30 13:51:08',
             ),
             8 => 
             array (
@@ -105,8 +105,8 @@ class CategoriesSeeder extends Seeder{
                 'desc' => '',
                 'active' => 1,
                 'main' => 1,
-                'created_at' => '2023-05-30 13:51:00',
-                'updated_at' => '2023-05-30 13:51:00',
+                'created_at' => '2023-05-30 13:51:07',
+                'updated_at' => '2023-05-30 13:51:07',
             ),
             
         ));

@@ -13,7 +13,7 @@ class CategoriesController extends Controller{
     }
 
     public static function get($id){
-        $category = DB::table('categories')->where('id', $id)->get();
+        $category = DB::table('categories')->where('id', $id)->orderBy('created_at', 'desc')->get();
         return $category;
     }
 
