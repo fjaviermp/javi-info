@@ -35,10 +35,15 @@ class CategoriesController extends Controller{
     public static function create(Request $request){
         $slug = Str::slug($request->name, "-");
         $now =  Carbon::now();
+        $desc = $request->desc;
+
+        if ($desc == NULL)
+            $desc = "";
+
         DB::table('categories')->insert([
             "name" => $request->name,
             "slug" => $slug,
-            "desc" => $request->desc,
+            "desc" => $desc,
             "active" => $request->checked,
             "main" => $request->main,
             "created_at" => $now,

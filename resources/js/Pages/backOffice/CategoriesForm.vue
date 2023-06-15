@@ -54,7 +54,7 @@
                                 </label>
                                 <input
                                     class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full"
-                                    name="name" id="name" type="text" autocomplete="name" v-model="form.name">
+                                    required="required" name="name" id="name" type="text" autocomplete="name" v-model="form.name">
                             </div>
 
                             <div class="col-span-4 sm:col-span-6">
@@ -95,6 +95,7 @@
     
     var check = false;
     var inMenu = false;
+    
     if (props.category) {
         if (props.category[0].active == 1)
             check = true
