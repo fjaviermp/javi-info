@@ -38,9 +38,9 @@ const submit = () => {
     <div id="loginZone">
     <div id="loginCard">
 
-        <div class="imgLogin">
+        <Link :href="route('home')" class="imgLogin">
             <img class="img-fluid" src="logo.png" alt="Logo de la web">
-        </div>
+        </Link>
 
         <div class="loginContent">
 

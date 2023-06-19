@@ -16,7 +16,7 @@ Route::get('/', function () {
         'options' => OptionsController::getOptions(),
         'categories' => CategoriesController::getAllCats()
     ]);
-});
+})->name('home');
 
 Route::get('/{category}/{slug}', function ($category, $slug) {
     return Inertia::render('frontOffice/Entry', [

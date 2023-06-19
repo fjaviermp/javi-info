@@ -1,9 +1,12 @@
 <script setup>
+    import { Link } from '@inertiajs/vue3';
+
     const props = defineProps({
         title: String,
         subtitle: String,
         btnText: String,
-        image: String
+        btnUrl: String,
+        image: String,
     });
 </script>
 
@@ -14,7 +17,7 @@
         <div v-if="title" class="image-text">
             <h1>{{ title }}</h1>
             <p>{{ subtitle }}</p>
-            <a :href="btnText" class="btn btn-primary btn-lg">{{ btnText }}</a>
+            <Link :href="btnUrl" class="btn btn-primary btn-lg">{{ btnText }}</Link>
         </div>
         <template v-else>
 
