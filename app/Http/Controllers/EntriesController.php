@@ -37,9 +37,8 @@ class EntriesController extends Controller{
         return to_route('entries.show');
     }
 
-    public static function show($id){
-        $entry = DB::table('entries')->where('id', $id)->get();
-        return $entry;
+    public static function show($slug){
+        return DB::table('entries')->where("slug", $slug)->first();
     }
 
     public static function update(Request $request){

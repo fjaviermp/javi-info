@@ -14,13 +14,15 @@ use App\Http\Controllers\ImageController;
 Route::get('/', function () {
     return Inertia::render('frontOffice/Home', [
         'options' => OptionsController::getOptions(),
-        'categories' => CategoriesController::index()
+        'categories' => CategoriesController::getAllCats()
     ]);
 });
 
-Route::get('/contacto', function () {
-    return Inertia::render('TermsOfService', [
-        'options' => OptionsController::getOptions()
+Route::get('/{category}/{slug}', function ($category, $slug) {
+    return Inertia::render('frontOffice/Entry', [
+        'options' => OptionsController::getOptions(),
+        'categories' => CategoriesController::getAllCats(),
+        'entry' => EntriesController::show($slug), 
     ]);
 });
 
