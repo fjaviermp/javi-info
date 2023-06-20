@@ -21,9 +21,9 @@
             
             <div class="navElement hover:bg-gray-200 rounded-lg">
                 <inertia-link :class="route().current('options.show') ? 'bg-gray-200' : 'bg-transparent'" 
-                    class="rounded-lg no-underline block pr-2 py-2 mt-2 text-base font-semibold dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 focus:bg-gray-200 focus:outline-none focus:shadow-outline" 
+                    class="rounded-lg no-underline block pr-2 py-2 mb-1 mt-1 text-base font-semibold dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 focus:bg-gray-200 focus:outline-none focus:shadow-outline" 
                     :href="route('options.show')">
-                    <i class="fa-solid fa-pen-ruler text-gray-900 pr-2"></i>
+                    <i class="fa-solid fa-pen-ruler text-gray-900 pl-4 pr-2"></i>
                     <span class="text-gray-900 text-base">Personalización</span>
                 </inertia-link>
             </div>
@@ -32,18 +32,29 @@
 
             <div class="navElement hover:bg-gray-200 rounded-lg">
                 <inertia-link :class="route().current('categories.show') ? 'bg-gray-200' : 'bg-transparent'" 
-                    class="rounded-lg no-underline block pr-2 py-2 mt-2 text-base font-semibold dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 focus:bg-gray-200 focus:outline-none focus:shadow-outline" 
+                    class="rounded-lg no-underline block pr-2 py-2 mb-1 mt-1 text-base font-semibold dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 focus:bg-gray-200 focus:outline-none focus:shadow-outline" 
                     :href="route('categories.show')">
-                    <i class="fa-solid fa-book text-gray-900 pr-2"></i>
+                    <i class="fa-solid fa-book text-gray-900 pl-4 pr-2"></i>
                     <span class="text-gray-900 text-base">Categorías</span>
                 </inertia-link>
             </div>
 
             <div class="navElement hover:bg-gray-200 rounded-lg">
+                    <inertia-link :class="route().current('subcategories.show') ? 'bg-gray-200' : 'bg-transparent'" 
+                        class="rounded-lg no-underline block pr-2 py-2 mb-1 mt-1 text-base font-semibold dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 focus:bg-gray-200 focus:outline-none focus:shadow-outline" 
+                        :href="route('subcategories.show')">
+                        <i class="fa-solid fa-bookmark pl-4 pr-2"></i>
+                        <span class="text-gray-900 text-base">Subcategorías</span>
+                    </inertia-link>
+            </div>
+        
+            <hr>
+
+            <div class="navElement hover:bg-gray-200 rounded-lg">
                 <inertia-link :class="route().current('entries.show') ? 'bg-gray-200' : 'bg-transparent'" 
-                    class="rounded-lg no-underline block pr-2 py-2 mt-2 text-base font-semibold dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 focus:bg-gray-200 focus:outline-none focus:shadow-outline" 
+                    class="rounded-lg no-underline block pr-2 py-2 mb-1 mt-1 text-base font-semibold dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 focus:bg-gray-200 focus:outline-none focus:shadow-outline" 
                     :href="route('entries.show')">
-                    <i class="fa-solid fa-pen-to-square text-gray-900 pr-2"></i>
+                    <i class="fa-solid fa-pen-to-square text-gray-900 pl-4 pr-2"></i>
                     <span class="text-gray-900 text-base">Entradas</span>
                 </inertia-link>
             </div>

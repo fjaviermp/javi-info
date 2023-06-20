@@ -1,10 +1,10 @@
 <template>
-    <Head :title="('Categorías')"></Head>
+    <Head :title="('Subcategorías')"></Head>
 
     <div v-show="this.popDelete" id="bgPopup">
         <div id="popup">
             <div id="popHeader" class="bg-gray-700 text-white p-3">
-                <h1>Eliminar categoría</h1>
+                <h1>Eliminar subcategoría</h1>
             </div>
             <div id="popContent" class="flex flex-column w-full justify-center m-auto w-5/6">
 
@@ -27,31 +27,33 @@
     </div>
     <app-layout v-bind:options="options">
         <template #header>
-            Listado de categorías
+            Listado de subcategorías
         </template>
 
 
         <jet-bar-container>
-            <inertia-link href="categories/create" class="mb-3 justify-end flex no-underline text-indigo-600 hover:text-indigo-900">
-                <button class="p-3 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition"><i class="fa-solid fa-plus"></i> | Crear CATEGORÍA</button>
+            <inertia-link href="subcategories/create" class="mb-3 justify-end flex no-underline text-indigo-600 hover:text-indigo-900">
+                <button class="p-3 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition"><i class="fa-solid fa-plus"></i> | Crear SUBCATEGORÍA</button>
             </inertia-link>
 
-            <jet-bar-table :headers="['Nombre', 'Descripcion', 'Estado', '', '']" >
+            <jet-bar-table :headers="['Nombre', 'Categoría Padre', 'Estado', '', '']" >
                 <tr class="hover:bg-gray-50" v-for="category in categories" :id="'category'+category.id" >
                     <jet-bar-table-data>
                         <span class="text-sm text-gray-900 font-semibold">{{ category.name }}</span>
                     </jet-bar-table-data>
                     <jet-bar-table-data>
-                        <div v-if="category.desc.length > 71" class="text-sm text-gray-600">{{ category.desc.substr(0, 75) + " ..." }} </div>
-                        <div v-else-if="category.desc.length <= 71 && category.desc.length > 0" class="text-sm text-gray-600">{{ category.desc }} </div>
-                        <div v-else class="text-sm font-bold text-red-600"> NO DISPONILE </div>
+                        <div class="text-sm text-blue-600 font-semibold">
+                            <Link :href="('/admin/categories/edit/'+category.parent_id)">
+                                <span>{{ category.parent_name }}</span>{{ " (" +category.parent_id + ")" }}
+                            </Link>
+                        </div>
                     </jet-bar-table-data>
                     <jet-bar-table-data>
                         <jet-bar-badge v-if="category.active" text="Activado" type="success" />
                         <jet-bar-badge v-else text="Desactivado" type="danger" />
                     </jet-bar-table-data>
                     <jet-bar-table-data>
-                        <inertia-link :href="route('categories.editForm', { id: category.id })" class="no-underline text-indigo-600 hover:text-indigo-900">
+                        <inertia-link :href="route('subcategories.editForm', { id: category.id })" class="no-underline text-indigo-600 hover:text-indigo-900">
                             <i class="fa-solid fa-pencil"></i>
                             <span class="pl-2">Modificar</span>
                         </inertia-link>
@@ -79,7 +81,7 @@
 </script>
 
 <script>
-import { Head } from '@inertiajs/vue3';
+import { Head, Link } from '@inertiajs/vue3';
 
 import AppLayout from '@/Layouts/AppLayout.vue'
 import JetBarContainer from "@/Components/backOffice/JetBarContainer.vue";
@@ -128,7 +130,7 @@ export default {
                 },
                 body: JSON.stringify({
                     "id": id,
-                    "type": "categories",
+                    "type": "subcategories",
                     "_token": this.$page.props.csrf_token,
                 })
 

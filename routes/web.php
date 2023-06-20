@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Controllers\OptionsController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\ContentController;
 use App\Http\Controllers\EntriesController;
 use App\Http\Controllers\ImageController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
@@ -14,7 +15,7 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 Route::get('/', function () {
     return Inertia::render('frontOffice/Home', [
         'options' => OptionsController::getOptions(),
-        'categories' => CategoriesController::getAllCats()
+        'categories' => ContentController::getAllCats()
     ]);
 })->name('home');
 
@@ -24,7 +25,7 @@ Route::group(['middleware' => config('fortify.middleware', ['web'])], function (
         Route::get('/login', function () {
             return Inertia::render('Auth/Login', [
                 'options' => OptionsController::getOptions(),
-                'categories' => CategoriesController::getAllCats()
+                'categories' => ContentController::getAllCats()
             ]);
         })->middleware(['guest:'.config('fortify.guard')])->name('login');
     }
@@ -61,9 +62,6 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])
 
 //Rutas del panel de administración
 Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
-    Route::controller(CategoriesController::class)->group(function () {
-        Route::get('/test', 'get');
-    });
     Route::get('/options', function () {
         return Inertia::render('backOffice/Options', [
             'options' => OptionsController::getOptions()
@@ -74,21 +72,41 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
     Route::get('/categories', function () {
         return Inertia::render('backOffice/Categories', [
             'options' => OptionsController::getOptions(),
-            'categories' => CategoriesController::index()
+            'categories' => CategoriesController::index('categories')
         ]);
     })->name('categories.show');
 
+    // Subcategorias
+    Route::get('/subcategories', function () {
+        return Inertia::render('backOffice/Subcategories', [
+            'options' => OptionsController::getOptions(),
+            'categories' => CategoriesController::index('subcategories')
+        ]);
+    })->name('subcategories.show');
+
+    //Editar ambas
     Route::get('/categories/edit/{id}', function (Request $request) {
         return Inertia::render('backOffice/CategoriesForm', [
             'options' => OptionsController::getOptions(),
-            'category' => CategoriesController::get($request->id)]);
-    })->name('categories.editForm');;
+            'category' => CategoriesController::get($request->id, 'categories')]);
+    })->name('categories.editForm');
+    Route::get('/subcategories/edit/{id}', function (Request $request) {
+        return Inertia::render('backOffice/SubcategoriesForm', [
+            'options' => OptionsController::getOptions(),
+            'category' => CategoriesController::get($request->id, 'subcategories')]);
+    })->name('subcategories.editForm');;
     
+    //Crear ambas
     Route::get('/categories/create', function (Request $request) {
         return Inertia::render('backOffice/CategoriesForm', [
             'options' => OptionsController::getOptions(),
         ]);
     })->name('categories.createForm');
+    Route::get('/subcategories/create', function (Request $request) {
+        return Inertia::render('backOffice/SubcategoriesForm', [
+            'options' => OptionsController::getOptions(),
+        ]);
+    })->name('subcategories.createForm');
 
     Route::post('/categories/update/', function (Request $request) {
         return CategoriesController::update($request);
@@ -129,7 +147,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
         return EntriesController::store($request);
     });
     Route::post('/entries/delete/', function (Request $request) {
-        return CategoriesController::delete($request);
+        return EntriesController::delete($request);
     });
 
     //Subir una imagen

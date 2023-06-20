@@ -1,13 +1,13 @@
 <template>
     <app-layout v-bind:options="options">
-        <Head :title="('Categorías')"></Head>
+        <Head :title="('Subcategorías')"></Head>
 
         <template #header>
             <div v-if="props.category">
-                Editar categoria
+                Editar Subcategoria
             </div>
             <div v-else>
-                Crear categoría
+                Crear Subcategoria
             </div>
         </template>
 
@@ -71,7 +71,7 @@
 
                     <div class="flex justify-between px-4 py-3 bg-gray-50 text-right sm:px-6 shadow sm:rounded-bl-md sm:rounded-br-md">
                         
-                        <inertia-link href="/admin/categories" class="justify-start flex no-underline text-indigo-600 hover:text-indigo-900">
+                        <inertia-link href="/admin/subcategories" class="justify-start flex no-underline text-indigo-600 hover:text-indigo-900">
                             <button class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">Cancelar</button>
                         </inertia-link>
 
@@ -114,7 +114,7 @@
         desc: formDesc,
         checked: check,
         main: inMenu,
-        type: "categories",
+        type: "subcategories",
     })  
 
 
@@ -164,7 +164,7 @@ export default {
                 body: JSON.stringify({
                     '_token': this.$page.props.csrf_token,
                     "search": document.getElementById("name").value,
-                    "type": "categories",
+                    "type": "subcategories",
                 })
             })
             .then(r => r.json())
