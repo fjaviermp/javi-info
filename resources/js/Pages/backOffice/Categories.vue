@@ -37,7 +37,7 @@
             </inertia-link>
 
             <jet-bar-table :headers="['Nombre', 'Descripcion', 'Estado', '', '']" >
-                <tr :id="'category'+category.id" class="hover:bg-gray-50" v-for="category in categories">
+                <tr class="hover:bg-gray-50" v-for="category in categories" :id="'category'+category.id" >
                     <jet-bar-table-data>
                         <span class="text-sm text-gray-900 font-semibold">{{ category.name }}</span>
                     </jet-bar-table-data>

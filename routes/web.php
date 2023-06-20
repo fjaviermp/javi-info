@@ -18,14 +18,6 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
-Route::get('/{category}/{slug}', function ($category, $slug) {
-    return Inertia::render('frontOffice/Entry', [
-        'options' => OptionsController::getOptions(),
-        'categories' => CategoriesController::getAllCats(),
-        'entry' => EntriesController::show($slug), 
-    ]);
-});
-
 Route::group(['middleware' => config('fortify.middleware', ['web'])], function () {
     $enableViews = config('fortify.views', true);
     if ($enableViews) {
