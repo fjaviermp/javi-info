@@ -11,17 +11,17 @@
 </script>
 
 <template>
-    <section class="" id="landscape-image">
+    <section id="landscape-image">
         <div alt="Portada" class="landscape-file img-fluid" v-bind:style="{ backgroundImage: 'url(' + image + ')' }"></div>
 
         <div v-if="title" class="image-text">
-            <h1>{{ title }}</h1>
-            <p>{{ subtitle }}</p>
+            <h1 class="homeTitle">{{ title }}</h1>
+            <p class="homeSubtitle">{{ subtitle }}</p>
             <Link :href="btnUrl" class="btn btn-primary btn-lg">{{ btnText }}</Link>
         </div>
-        <template v-else>
-
-        </template>
+        <div v-else class="slotDiv">
+            <slot />
+        </div>
     </section>
 </template>
 <style>
@@ -35,8 +35,20 @@
         left: 50%;
         transform: translate(-50%, -50%);
         z-index: 1;
-        color: #fff;
         text-align: center;
+    }
+
+    .slotDiv{
+        width: 100%;
+        top: 0;
+        position: absolute;
+        z-index: 1;
+        display: flex;
+        justify-content: center;
+    }
+
+    .homeTitle, .homeSubtitle{
+        color: #fff;
     }
 
     /* ESTO ES PARA QUE LA IMAGEN ESTE QUIETA Y OCUPE EL 100%*/

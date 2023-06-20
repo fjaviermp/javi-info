@@ -1,7 +1,8 @@
 <script setup>
 import { Head, Link, useForm } from '@inertiajs/vue3';
 
-import AuthenticationCard from '@/Components/auth/AuthenticationCard.vue';
+import Navbar from '../../Components/frontOffice/Navbar.vue'
+import Landscape from '../../Components/frontOffice/Landscape.vue'
 
 import Checkbox from '@/Components/forms/Checkbox.vue';
 import InputError from '@/Components/forms/InputError.vue';
@@ -12,6 +13,8 @@ import TextInput from '@/Components/forms/TextInput.vue';
 defineProps({
     canResetPassword: Boolean,
     status: String,
+    options: Object,
+    categories: Object,
 });
 
 const form = useForm({
@@ -32,60 +35,60 @@ const submit = () => {
 
 <template>
     <Head title="Login" />
+    <Navbar :categories="categories" :title="options.web_title"></Navbar>
+    <Landscape :image="'../img/'+options.home_image">
+        <div id="loginZone">
+            <div id="loginCard">
 
-    <div id="bgImage"></div>
+                <Link :href="route('home')" class="imgLogin">
+                    <img class="img-fluid" src="logo.png" alt="Logo de la web">
+                </Link>
 
-    <div id="loginZone">
-    <div id="loginCard">
+                <div class="loginContent">
 
-        <Link :href="route('home')" class="imgLogin">
-            <img class="img-fluid" src="logo.png" alt="Logo de la web">
-        </Link>
+                    <form @submit.prevent="submit">
+                        <div class="inputField">
+                            <InputLabel for="email" value="E-mail:" />
+                            <TextInput
+                                id="email"
+                                v-model="form.email"
+                                type="email"
+                                class="form-control"
+                                required
+                                autofocus
+                                autocomplete="username"
+                            />
+                        </div>
 
-        <div class="loginContent">
+                        <div class="inputField">
+                            <InputLabel for="password" value="Contraseña:" />
+                            <TextInput
+                                id="password"
+                                v-model="form.password"
+                                type="password"
+                                required
+                                class="form-control"
+                                autocomplete="current-password"
+                            />
+                        </div>
 
-            <form @submit.prevent="submit">
-                <div class="inputField">
-                    <InputLabel for="email" value="E-mail:" />
-                    <TextInput
-                        id="email"
-                        v-model="form.email"
-                        type="email"
-                        class="form-control"
-                        required
-                        autofocus
-                        autocomplete="username"
-                    />
+                        <InputError :message="form.errors.email" />
+                        <InputError :message="form.errors.password" />
+
+                        <div class="loginChecks">
+                            <div>
+                                <Checkbox v-model:checked="form.remember" name="remember" />
+                                    <span class="mx-2">Recordar</span>
+                            </div>
+                            <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                                Iniciar Sesión
+                            </PrimaryButton>
+                        </div>
+                    </form>
                 </div>
-
-                <div class="inputField">
-                    <InputLabel for="password" value="Contraseña:" />
-                    <TextInput
-                        id="password"
-                        v-model="form.password"
-                        type="password"
-                        required
-                        class="form-control"
-                        autocomplete="current-password"
-                    />
-                </div>
-
-                <InputError :message="form.errors.email" />
-                <InputError :message="form.errors.password" />
-
-                <div class="loginChecks">
-                    <div>
-                        <Checkbox v-model:checked="form.remember" name="remember" />
-                            <span class="mx-2">Recordar</span>
-                    </div>
-                    <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                        Iniciar Sesión
-                    </PrimaryButton>
-                </div>
-            </form>
+            </div>
         </div>
-    </div>
-    </div>
+    </Landscape>
 </template>
 
 <style>

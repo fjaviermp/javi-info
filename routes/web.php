@@ -9,7 +9,7 @@ use App\Http\Controllers\OptionsController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\EntriesController;
 use App\Http\Controllers\ImageController;
-
+use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
 Route::get('/', function () {
     return Inertia::render('frontOffice/Home', [
@@ -24,6 +24,31 @@ Route::get('/{category}/{slug}', function ($category, $slug) {
         'categories' => CategoriesController::getAllCats(),
         'entry' => EntriesController::show($slug), 
     ]);
+});
+
+Route::group(['middleware' => config('fortify.middleware', ['web'])], function () {
+    $enableViews = config('fortify.views', true);
+    if ($enableViews) {
+        Route::get('/login', function () {
+            return Inertia::render('Auth/Login', [
+                'options' => OptionsController::getOptions(),
+                'categories' => CategoriesController::getAllCats()
+            ]);
+        })->middleware(['guest:'.config('fortify.guard')])->name('login');
+    }
+
+    $limiter = config('fortify.limiters.login');
+    $twoFactorLimiter = config('fortify.limiters.two-factor');
+    $verificationLimiter = config('fortify.limiters.verification', '6,1');
+
+    Route::post('/login', [AuthenticatedSessionController::class, 'store'])
+        ->middleware(array_filter([
+            'guest:'.config('fortify.guard'),
+            $limiter ? 'throttle:'.$limiter : null,
+        ]));
+
+    Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
+        ->name('logout');
 });
 
 Route::get('/getoptions', function () {return OptionsController::getOptions();});
