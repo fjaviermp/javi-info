@@ -19,7 +19,7 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                 <ul class="navbar-nav mb-2 mb-lg-0">
                     <template v-for="category in categories" :key="category.id">
-                        <li v-if="category.subcats.length == 0" class="nav-item">
+                        <li v-if="category.subcats.length == 0 && category.entries.length == 0" class="nav-item">
                             <Link class="nav-link" :href="('/'+category.slug)">{{ category.name }}</Link>
                         </li>
 
@@ -30,6 +30,9 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li v-for="subcat in category.subcats" :key="subcat.id">
                                     <Link class="dropdown-item" :href="('/'+category.slug+'/'+subcat.slug)">{{ subcat.name }}</Link>
+                                </li>
+                                <li v-for="entry in category.entries" :key="entry.id">
+                                    <Link class="dropdown-item" :href="('/'+entry.slug+'/'+entry.slug)">{{ entry.name }}</Link>
                                 </li>
                             </ul>
                         </li>

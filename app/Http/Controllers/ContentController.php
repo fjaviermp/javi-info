@@ -16,6 +16,8 @@ class ContentController extends Controller{
 
         $parent = DB::table('categories')->where('main', 1)->where('active', 1)->get();
         $child = DB::table('subcategories')->orderBy('parent_id')->where('main', 1)->where('active', 1)->get();
+        $entry = DB::table('entries')->where('subcategory', null)->get();
+
         
         // Formamos el menu con sus categorias
         foreach ($parent as $item) {
@@ -38,6 +40,12 @@ class ContentController extends Controller{
         foreach ($child as $item) {
             if (in_array($item->parent_id, $arrCats))
                 array_push($menu[$item->parent_id]->subcats, $item);
+        }
+
+        //Metemos entradas
+        foreach ($entry as $item) {
+            if (in_array($item->category, $arrCats))
+                array_push($menu[$item->category]->entries, $item);
         }
 
         return $menu;
