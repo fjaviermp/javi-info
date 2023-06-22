@@ -23,21 +23,29 @@ class CategoriesController extends Controller{
     }
 
     public static function update(Request $request){
-        $desc = $request->desc;
         $slug = Str::slug($request->name, "-");
-        if ($desc == NULL)
-            $desc = "";
-
-        DB::table('categories')->where('id', $request->id)->update([
-            "name" => $request->name,
-            "slug" => $slug,
-            "desc" => $desc,
-            "active" => $request->checked,
-            "main" => $request->main,
-            "updated_at" => Carbon::now(),
-        ]);
-
-        return to_route('categories.show');
+        if ($request->type == "categories") {
+            DB::table('categories')->where('id', $request->id)->update([
+                "name" => $request->name,
+                "slug" => $slug,
+                "desc" => $request->desc,
+                "active" => $request->checked,
+                "main" => $request->main,
+                "updated_at" => Carbon::now(),
+            ]);
+            return to_route('categories.show');
+        }else{
+            DB::table('subcategories')->where('id', $request->id)->update([
+                "name" => $request->name,
+                "parent_id" => $request->parent_id,
+                "slug" => $slug,
+                "desc" => $request->desc,
+                "active" => $request->checked,
+                "main" => $request->main,
+                "updated_at" => Carbon::now(),
+            ]);
+            return to_route('subcategories.show');
+        }
     }
 
     public static function create(Request $request){
