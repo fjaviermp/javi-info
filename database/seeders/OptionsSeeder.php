@@ -13,6 +13,7 @@ class OptionsSeeder extends Seeder{
             0 => 
             array (
                 'id' => 1,
+                'name' => 'Imagen de fondo',
                 'value' => 'bg.webp',
                 'key' => 'home_image',
                 'type' => 'file',
@@ -23,6 +24,7 @@ class OptionsSeeder extends Seeder{
             1 => 
             array (
                 'id' => 2,
+                'name' => 'Logotipo de la web',
                 'value' => 'logo.png',
                 'key' => 'logo',
                 'type' => 'file',
@@ -33,6 +35,7 @@ class OptionsSeeder extends Seeder{
             2 => 
             array (
                 'id' => 3,
+                'name' => 'Favicon',
                 'value' => 'favicon.ico', //Esto tendra que llamarse siempre asi, que si no el VUE Head dice que me vaya a tomar por culo de una forma increible
                 'key' => 'favicon',
                 'type' => 'file',
@@ -43,6 +46,7 @@ class OptionsSeeder extends Seeder{
             3 => 
             array (
                 'id' => 4,
+                'name' => 'Titulo de la web',
                 'value' => 'Título de la web',
                 'key' => 'web_title',
                 'type' => 'text',
@@ -53,6 +57,7 @@ class OptionsSeeder extends Seeder{
             4 => 
             array (
                 'id' => 5,
+                'name' => 'Titulo de Home',
                 'value' => 'MI TITULO DE LA WEB',
                 'key' => 'home_title',
                 'type' => 'text',
@@ -62,6 +67,7 @@ class OptionsSeeder extends Seeder{
             5 => 
             array (
                 'id' => 6,
+                'name' => 'Subtitulo de Home',
                 'value' => 'MI SUBTITULO DE WEB, aqui puede ir una descripción super larga, como esta. Es que poner un lorem ipsum está muy visto ya ¿No?',
                 'key' => 'home_subtitle',
                 'type' => 'text',
@@ -72,6 +78,7 @@ class OptionsSeeder extends Seeder{
             7 => 
             array (
                 'id' => 7,
+                'name' => 'Texto del boton de Home',
                 'value' => 'Descubrir Más',
                 'key' => 'home_btnText',
                 'type' => 'text',
@@ -81,6 +88,7 @@ class OptionsSeeder extends Seeder{
             8 => 
             array (
                 'id' => 8,
+                'name' => 'Url del boton Home',
                 'value' => '/login',
                 'key' => 'home_btnUrl',
                 'type' => 'text',
@@ -92,6 +100,7 @@ class OptionsSeeder extends Seeder{
                     9 => 
                     array (
                         'id' => 9,
+                        'name' => 'Icono primera tarjeta',
                         'value' => 'fas fa-globe',
                         'key' => 'home_btn1_icon',
                         'type' => 'text',
@@ -101,6 +110,7 @@ class OptionsSeeder extends Seeder{
                     10 => 
                     array (
                         'id' => 10,
+                        'name' => 'Título primera tarjeta',
                         'value' => 'Global Reach',
                         'key' => 'home_btn1_title',
                         'type' => 'text',
@@ -110,6 +120,7 @@ class OptionsSeeder extends Seeder{
                     11 => 
                     array (
                         'id' => 11,
+                        'name' => 'Descripción primera tarjeta',
                         'value' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla laoreet, erat in auctor efficitur, tortor ipsum aliquam purus.',
                         'key' => 'home_btn1_text',
                         'type' => 'text',
@@ -120,6 +131,7 @@ class OptionsSeeder extends Seeder{
                     12 => 
                     array (
                         'id' => 12,
+                        'name' => 'Icono segunda tarteta',
                         'value' => 'fas fa-clock',
                         'key' => 'home_btn2_icon',
                         'type' => 'text',
@@ -129,6 +141,7 @@ class OptionsSeeder extends Seeder{
                     13 => 
                     array (
                         'id' => 13,
+                        'name' => 'Título segunda tarteta',
                         'value' => '24/7 Support',
                         'key' => 'home_btn2_title',
                         'type' => 'text',
@@ -138,6 +151,7 @@ class OptionsSeeder extends Seeder{
                     14 => 
                     array (
                         'id' => 14,
+                        'name' => 'Descripción segunda tarteta',
                         'value' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla laoreet, erat in auctor efficitur, tortor ipsum aliquam purus.',
                         'key' => 'home_btn2_text',
                         'type' => 'text',
@@ -148,6 +162,7 @@ class OptionsSeeder extends Seeder{
                     15 => 
                     array (
                         'id' => 15,
+                        'name' => 'Icono tercera tarjeta',
                         'value' => 'fas fa-heart',
                         'key' => 'home_btn3_icon',
                         'type' => 'text',
@@ -157,6 +172,7 @@ class OptionsSeeder extends Seeder{
                     16 => 
                     array (
                         'id' => 16,
+                        'name' => 'Título tercera tarjeta',
                         'value' => 'Customer Love',
                         'key' => 'home_btn3_title',
                         'type' => 'text',
@@ -166,6 +182,7 @@ class OptionsSeeder extends Seeder{
                     17 => 
                     array (
                         'id' => 17,
+                        'name' => 'Descripción tercera tarjeta',
                         'value' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla laoreet, erat in auctor efficitur, tortor ipsum aliquam purus.',
                         'key' => 'home_btn3_text',
                         'type' => 'text',

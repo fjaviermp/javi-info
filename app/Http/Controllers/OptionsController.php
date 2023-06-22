@@ -20,4 +20,9 @@ class OptionsController extends Controller{
 
         return $optionList;
     }
+
+    public static function indexAll(){
+        $options = DB::table('options')->get();
+        return $options;
+    }
 }

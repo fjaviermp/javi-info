@@ -64,7 +64,8 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])
 Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
     Route::get('/options', function () {
         return Inertia::render('backOffice/Options', [
-            'options' => OptionsController::getOptions()
+            'options' => OptionsController::getOptions(),
+            'customization' => OptionsController::indexAll()
         ]);
     })->name('options.show');
 
