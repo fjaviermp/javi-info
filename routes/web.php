@@ -93,7 +93,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
     Route::get('/subcategories/edit/{id}', function (Request $request) {
         return Inertia::render('backOffice/SubcategoriesForm', [
             'options' => OptionsController::getOptions(),
-            'category' => CategoriesController::get($request->id, 'subcategories')]);
+            'category' => CategoriesController::get($request->id, 'subcategories'),
+            'parents' => CategoriesController::index('categories'),
+        ]);
     })->name('subcategories.editForm');;
     
     //Crear ambas
@@ -105,6 +107,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
     Route::get('/subcategories/create', function (Request $request) {
         return Inertia::render('backOffice/SubcategoriesForm', [
             'options' => OptionsController::getOptions(),
+            'parents' => CategoriesController::index('categories'),
         ]);
     })->name('subcategories.createForm');
 
@@ -131,13 +134,15 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
     Route::get('/entries/edit/{id}', function (Request $request) {
         return Inertia::render('backOffice/EntriesForm', [
             'options' => OptionsController::getOptions(),
-            'categories' => CategoriesController::index(),
-            'entry' => EntriesController::show($request->id)]);
+            'categories' => CategoriesController::index('categories'),
+            'subcategories' => CategoriesController::index('subcategories'),
+            'entry' => EntriesController::get($request->id)]);
     })->name('entries.editForm');;
     Route::get('/entries/create', function (Request $request) {
         return Inertia::render('backOffice/EntriesForm', [
             'options' => OptionsController::getOptions(),
-            'categories' => CategoriesController::index(),
+            'categories' => CategoriesController::index('categories'),
+            'subcategories' => CategoriesController::index('subcategories'),
         ]);
     })->name('entries.createForm');
     Route::post('/entries/update/', function (Request $request) {
@@ -147,7 +152,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
         return EntriesController::store($request);
     });
     Route::post('/entries/delete/', function (Request $request) {
-        return EntriesController::delete($request);
+        return EntriesController::destroy($request);
     });
 
     //Subir una imagen

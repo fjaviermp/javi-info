@@ -44,7 +44,7 @@
                     <jet-bar-table-data>
                         <div class="text-sm text-blue-600 font-semibold">
                             <Link :href="('/admin/categories/edit/'+category.parent_id)">
-                                <span>{{ category.parent_name }}</span>{{ " (" +category.parent_id + ")" }}
+                                <span>{{ category.parent_name }}</span>
                             </Link>
                         </div>
                     </jet-bar-table-data>

@@ -19,7 +19,7 @@
                     <div class="px-4 py-5 bg-white sm:p-6 shadow sm:rounded-tl-md sm:rounded-tr-md">
                         <div class="grid grid-cols-6 gap-6">
 
-                            <div class="col-span-3 sm:col-span-1">
+                            <div class="col-span-1 sm:col-span-1">
                                 <label class="block font-medium text-sm text-gray-700" for="name">
                                         <span>ID:</span>
                                 </label>
@@ -28,16 +28,27 @@
                                     name="id" id="id" type="text" disabled="disabled"  v-model="form.id">
                             </div>
 
-                            <div class="col-span-3 sm:col-span-1 flex flex-column justify-between wrap flex-column">
+                            <div class="col-span-1 sm:col-span-1 flex flex-column justify-between wrap flex-column">
                                 <label class="block font-medium text-sm text-gray-700" for="name">
-                                        <span>Categoria</span>
+                                        <span>Categoria:</span>
                                 </label>
-                                <select required="required" v-model="form.category" id="category" name="category" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                                    <option v-for="category in categories"  :value="category.id">{{ category.name }}</option>
+                                <select @change="catSelection($event)" required="required" v-model="form.category" id="category" name="category" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                                    <option selected disabled :value="''" >- N/A -</option>
+                                    <option v-for="category in catsSelect"  :value="category.id">{{ category.name }}</option>
+                                </select>
+                            </div>
+                            
+                            <div class="col-span-1 sm:col-span-1 flex flex-column justify-between wrap flex-column">
+                                <label class="block font-medium text-sm text-gray-700" for="name">
+                                        <span>Subcategoria:</span>
+                                </label>
+                                <select @change="subCatSelection($event)" v-model="form.subcategory" id="subcategory" name="subcategory" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                                    <option :value="''" >- N/A -</option>
+                                    <option v-for="subcategory in subCatsSelect" :data-parent="subcategory.parent_id" :value="subcategory.id" >{{ subcategory.name }}</option>
                                 </select>
                             </div>
 
-                            <div class="col-span-4 sm:col-span-4">
+                            <div class="col-span-3 sm:col-span-3">
                                 <label class="block font-medium text-sm text-gray-700" for="name">
                                         <span>Nombre</span>
                                 </label>
@@ -86,15 +97,23 @@
         options: Object,
         entry: Object,
         categories: Object,
+        subcategories: Object,
+
     });
     
     if (props.entry) {
         var formId = props.entry[0].id
         var formName = props.entry[0].name
         var formCategory = props.entry[0].category
+        var formsubcategory = props.entry[0].subcategory
         var formDesc = props.entry[0].desc
         var formContent = props.entry[0].content
-    }  
+        if (!formsubcategory)
+            var formsubcategory = '';
+    }else{
+        var formCategory = '';
+        var formsubcategory = '';
+    }
 
     const form = useForm({
         id: formId,
@@ -102,6 +121,7 @@
         desc: formDesc,
         content: formContent,
         category: formCategory,
+        subcategory: formsubcategory,
     })  
 
 
@@ -111,6 +131,7 @@
         else
             router.post('/admin/entries/insert/', form)
     }
+    
 </script>
 
 <script>
@@ -118,8 +139,6 @@ import { Head } from '@inertiajs/vue3';
 
 import { useForm } from '@inertiajs/vue3'
 import { router } from '@inertiajs/vue3'
-
-import axios from 'axios';
 
 import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
@@ -190,8 +209,54 @@ export default {
                 ['blockquote', 'code-block'],
                 [{ 'script': 'sub'}, { 'script': 'super' }],
 
-            ]
+            ],
+            subCatsSelect: this.subcategories,
+            catsSelect: this.categories,
         }
     },
+    methods: {
+        // Para que al seleccionar una categoria solo aparezcan sus subcategorias
+        catSelection(event){
+            // Reseteamos array de subcategorias validas y metemos solo las que tienen ese padre
+            this.subCatsSelect = [];
+            this.subcategories.forEach(subCat => {
+                if(subCat.parent_id == event.target.value){
+                    this.subCatsSelect.push({
+                        active: subCat.active,
+                        desc: subCat.desc,
+                        id: subCat.id,
+                        main: subCat.main,
+                        name: subCat.name,
+                        parent_id: subCat.parend_id,
+                        parent_name: subCat.parent_name,
+                    });
+                }
+            });
+            //Por defecto se marca N/A
+            document.getElementById("subcategory").options[0].setAttribute('selected', true)   
+        },
+        // Para que al seleccionar una subcategoria se ponga sola su categoria
+        subCatSelection(event){
+            // Si se selecciona N/A Salen todas
+            if (document.getElementById("subcategory").value == "") {
+                this.catsSelect = this.categories
+            } else if (document.getElementById("category").value == "") {
+                parent = event.target.options[event.target.options.selectedIndex].dataset.parent
+                this.catsSelect = [];
+                this.categories.forEach(cat => {
+                    if(cat.id == parent){
+                        this.catsSelect.push({
+                            id: cat.id,
+                            active: cat.active,
+                            name: cat.name,
+                            desc: cat.desc,
+                            main: cat.main,
+                        });
+                    }
+                });
+                document.getElementById("category").options[0].setAttribute('selected', true)   
+            }
+        }
+    }
 }
 </script>

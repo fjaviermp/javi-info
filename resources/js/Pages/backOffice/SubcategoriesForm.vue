@@ -48,7 +48,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-span-4 sm:col-span-3">
+                            <div class="col-span-3 sm:col-span-3">
                                 <label class="block font-medium text-sm text-gray-700" for="name">
                                         <span>Nombre</span>
                                 </label>
@@ -57,7 +57,16 @@
                                     required="required" name="name" id="name" type="text" autocomplete="name" v-model="form.name" @keyup="searchExist">
                             </div>
 
-                            <div class="col-span-4 sm:col-span-6">
+                            <div class="col-span-1 sm:col-span-1">
+                                <label class="block font-medium text-sm text-gray-700" for="name">
+                                        <span>Categoría padre:</span>
+                                </label>
+                                <select required="required" v-model="form.parent_id" id="parent_id" name="parent_id" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                                    <option v-for="category in parents"  :value="category.id">{{ category.name }}</option>
+                                </select>
+                            </div>
+                            
+                            <div class="col-span-4 sm:col-span-4">
                                 <label class="block font-medium text-sm text-gray-700" for="desc">
                                     <span>Descripción</span>
                                 </label>
@@ -91,6 +100,7 @@
     const props = defineProps({
         options: Object,
         category: Object,
+        parents: Object,
     });
     
     var check = false;
@@ -104,12 +114,14 @@
             inMenu = true
 
         var formId = props.category[0].id
+        var parent = props.category[0].parent_id
         var formName = props.category[0].name
         var formDesc = props.category[0].desc
     }  
 
     const form = useForm({
         id: formId,
+        parent_id: parent,
         name: formName,
         desc: formDesc,
         checked: check,

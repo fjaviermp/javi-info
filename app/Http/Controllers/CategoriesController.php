@@ -23,12 +23,15 @@ class CategoriesController extends Controller{
     }
 
     public static function update(Request $request){
+        $desc = $request->desc;
         $slug = Str::slug($request->name, "-");
+        if ($desc == NULL)
+            $desc = "";
 
         DB::table('categories')->where('id', $request->id)->update([
             "name" => $request->name,
             "slug" => $slug,
-            "desc" => $request->desc,
+            "desc" => $desc,
             "active" => $request->checked,
             "main" => $request->main,
             "updated_at" => Carbon::now(),
@@ -58,6 +61,7 @@ class CategoriesController extends Controller{
         }else{
             DB::table('subcategories')->insert([
                 "name" => $request->name,
+                "parent_id" => $request->parent_id,
                 "slug" => $slug,
                 "desc" => $desc,
                 "active" => $request->checked,

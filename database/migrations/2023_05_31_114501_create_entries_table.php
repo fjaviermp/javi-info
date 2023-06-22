@@ -14,6 +14,7 @@ return new class extends Migration{
             $table->string('desc',250);
             $table->text('content');
             $table->unsignedInteger('category');
+            $table->unsignedInteger('subcategory')->nullable();
             $table->timestamps();
         });
     }

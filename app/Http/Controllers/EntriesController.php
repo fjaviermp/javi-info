@@ -37,12 +37,19 @@ class EntriesController extends Controller{
         return to_route('entries.show');
     }
 
+    public static function get($id){
+        return DB::table('entries')->where("id", $id)->get();
+    }
+
     public static function show($slug){
         return DB::table('entries')->where("slug", $slug)->first();
     }
 
     public static function update(Request $request){
+        $subcategory = $request->subcategory;
         $slug = Str::slug($request->name, "-");
+        if ($subcategory == "")
+            $subcategory = null;
 
         DB::table('entries')->where('id', $request->id)->update([
             "name" => $request->name,
@@ -51,6 +58,7 @@ class EntriesController extends Controller{
             "desc" => $request->desc,
             "content" => $request->content,
             "category" => $request->category,
+            "subcategory" => $request->subcategory,
             "updated_at" => Carbon::now(),
         ]);
 
