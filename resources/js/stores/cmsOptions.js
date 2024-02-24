@@ -6,7 +6,11 @@ export const useCmsOptionsStore = defineStore('cmsOptions', {
   }),
   getters: {
     getAllOptions(state) {
-      return state.options
+      if (state.options.length > 0) {
+        return state.options
+      } else {
+        
+      }
     },
     getMainColor(state) {
       return state.options.main_color;
