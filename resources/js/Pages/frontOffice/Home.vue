@@ -1,32 +1,40 @@
 <script setup>
-    import { Head, Link } from '@inertiajs/vue3';
-    import Navbar from '../../Components/frontOffice/Navbar.vue'
-    import Landscape from '../../Components/frontOffice/Landscape.vue'
-    import Footer from '../../Components/frontOffice/Footer.vue'
-    import Characteristics from '../../Components/frontOffice/Characteristics.vue'
-    import About from '../../Components/frontOffice/About.vue'
+  import { Head, Link } from '@inertiajs/vue3';
+  import {onBeforeMount } from 'vue';
+  import { useCmsOptionsStore } from '../../stores/cmsOptions'
+  import Navbar from '../../Components/frontOffice/Navbar.vue'
+  import Landscape from '../../Components/frontOffice/Landscape.vue'
+  import Footer from '../../Components/frontOffice/Footer.vue'
+  import Characteristics from '../../Components/frontOffice/Characteristics.vue'
+  import About from '../../Components/frontOffice/About.vue'
     
-    const props = defineProps({
-            options: Object,
-            categories: Object,
-    });
+  const props = defineProps({
+    options: Object,
+    categories: Object,
+  });
+
+  const customizationOptions = useCmsOptionsStore();
+
+  onBeforeMount(() => {
+    customizationOptions.setAllOptions(props.options);
+  });
 </script>
 
 <template>
-        <Head :title="('Inicio')"></Head>
-        <Navbar :categories="categories" :title="options.web_title"></Navbar>
-        <Landscape :title="options.home_title" :subtitle="options.home_subtitle" :btnText="options.home_btnText" :btnUrl="options.home_btnUrl" :image="'../img/'+options.home_image"></Landscape>
-        <section class="features-section">
-            <div class="container-fluid">
-                <div class="row justify-content-center">
-                    <Characteristics :icon="options.home_btn1_icon" :title="options.home_btn1_title" :text="options.home_btn1_text"></Characteristics>
-                    <Characteristics :icon="options.home_btn2_icon" :title="options.home_btn2_title" :text="options.home_btn2_text"></Characteristics>
-                    <Characteristics :icon="options.home_btn3_icon" :title="options.home_btn3_title" :text="options.home_btn3_text"></Characteristics>
-                </div>
-            </div>
-        </section>
-        <About></About>
-        <Footer></Footer>
+  <Head :title="('Inicio')"></Head>
+  <Navbar :categories="categories" :title="options.web_title"></Navbar>
+  <Landscape :title="options.home_title" :subtitle="options.home_subtitle" :btnText="options.home_btnText" :btnUrl="options.home_btnUrl" :image="'../img/'+options.home_image"></Landscape>
+    <section class="features-section">
+      <div class="container-fluid">
+        <div class="row justify-content-center">
+          <Characteristics :icon="options.home_btn1_icon" :title="options.home_btn1_title" :text="options.home_btn1_text"></Characteristics>
+          <Characteristics :icon="options.home_btn2_icon" :title="options.home_btn2_title" :text="options.home_btn2_text"></Characteristics>
+          <Characteristics :icon="options.home_btn3_icon" :title="options.home_btn3_title" :text="options.home_btn3_text"></Characteristics>
+        </div>
+      </div>
+    </section>
+  <About></About>
+  <Footer></Footer>
 </template>
 
 <style>

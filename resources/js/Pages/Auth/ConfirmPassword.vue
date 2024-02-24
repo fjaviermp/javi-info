@@ -5,8 +5,8 @@ import AuthenticationCard from '@/Components/auth/AuthenticationCard.vue';
 import AuthenticationCardLogo from '@/Components/auth/AuthenticationCardLogo.vue';
 import InputError from '@/Components/forms/InputError.vue';
 import InputLabel from '@/Components/forms/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
+import PrimaryButton from '@/Components/forms/PrimaryButton.vue';
+import TextInput from '@/Components//forms/TextInput.vue';
 
 const form = useForm({
     password: '',
