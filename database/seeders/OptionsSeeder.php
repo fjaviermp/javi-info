@@ -6,8 +6,8 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class OptionsSeeder extends Seeder{
-  public function run(){
+class OptionsSeeder extends Seeder {
+  public function run() {
     DB::table('options')->insert(array (
       /* Imagen del Home */
       0 => array (
@@ -173,12 +173,12 @@ class OptionsSeeder extends Seeder{
         'updated_at' => '2023-03-16 18:05:00',
       ),
     /* Aqui van datos de colores de botones por toda la web*/
-      18 => array (         
+      18 => array (
         'id' => 18,
         'name' => 'Color principal',
         'value' => '#0b5ed7',
         'key' => 'main_color',
-        'type' => 'text',
+        'type' => 'color',
         'created_at' => '2024-02-24 13:56:00',
         'updated_at' => '2024-02-24 13:56:00',
       )

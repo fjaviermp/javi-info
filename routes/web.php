@@ -68,7 +68,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
             'customization' => OptionsController::indexAll()
         ]);
     })->name('options.show');
-
+    Route::post('/options/update/', function (Request $request) {
+        return OptionsController::update($request);
+    });
     // Toda la parte para las categorias
     Route::get('/categories', function () {
         return Inertia::render('backOffice/Categories', [

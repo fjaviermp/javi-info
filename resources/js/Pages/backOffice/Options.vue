@@ -9,7 +9,7 @@
       <form @submit.prevent="submit">
         <div class="card shadow p-4">
           <div class=" d-flex justify-content-center flex-row flex-wrap">
-            <div v-for="option in excludeFiles" class="w-50 p-2">
+            <div v-for="option in formOptions" class="w-50 p-2">
               <label class="block font-medium text-sm text-gray-700" for="name">
                 <span>{{ option.name }}:</span>
               </label>
@@ -22,7 +22,6 @@
           </div>
           <div class="w-100 d-flex justify-content-center">
             <PrimaryButton
-              @buttonClicked="submitForm"
             >
               Guardar Cambios
             </PrimaryButton>
@@ -39,29 +38,23 @@
       customization: Object,
     });
     
-    const excludeFiles = ref(props.customization.filter((el) => el.type !== 'file'));
+    const formOptions = ref(props.customization.filter((el) => el.type !== 'file'));
     const customizationOptions = useCmsOptionsStore();
 
     onBeforeMount(() => {
       customizationOptions.setAllOptions(props.customization);
     });
 
-    var formOpt = {};
-    for (let i = 0; i < props.customization.length; i++) {
-      formOpt[props.customization[i].key] = props.customization[i].value
-    }
-    const form = useForm(formOpt)  
-
     function submit() {
-      router.post('/admin/options/update/', form)
+      console.log(formOptions.value)
+      // router.post('/admin/options/update/', formOptions.value)
     }
 </script>
 
 <script>
 import { Head } from '@inertiajs/vue3';
-import { useForm } from '@inertiajs/vue3'
-import { router } from '@inertiajs/vue3'
-import { onBeforeMount, ref } from "vue";
+import { useForm, router } from '@inertiajs/vue3';
+import { onBeforeMount, ref, reactive } from "vue";
 import PrimaryButton from '@/Components/forms/PrimaryButton.vue';
 import { useCmsOptionsStore } from '../../stores/cmsOptions'
 import AppLayout from '@/Layouts/AppLayout.vue'

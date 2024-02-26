@@ -6,22 +6,23 @@ export const useCmsOptionsStore = defineStore('cmsOptions', {
   }),
   getters: {
     getAllOptions(state) {
-      if (state.options.length > 0) {
+      if (Object.keys(state.options).length > 0 && state.options !== undefined) {
         return state.options
       } else {
-        
+        return JSON.parse(localStorage.getItem('options'));
       }
     },
-    getMainColor(state) {
-      return state.options.main_color;
-    },
     getBackGroundMainColor(state) {
-      return `background-color: ${state.options.main_color}`;
+      return `background-color:  ${localStorage.getItem('main_color')}`;
     },
   },
   actions: {
     setAllOptions(newOptions) {
       this.options = newOptions;
+      localStorage.setItem('options', JSON.stringify(newOptions));
+      for (const [key, value] of Object.entries(newOptions)) {
+        localStorage.setItem(key, value);
+      }
     },
   },
 })
