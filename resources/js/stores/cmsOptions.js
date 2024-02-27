@@ -13,7 +13,9 @@ export const useCmsOptionsStore = defineStore('cmsOptions', {
       }
     },
     getBackGroundMainColor(state) {
-      return `background-color:  ${localStorage.getItem('main_color')}`;
+      return state !== undefined &&  this.options.main_color
+      ? `background-color:  ${this.options.main_color}`
+      : `background-color:  ${localStorage.getItem('main_color')}`;
     },
   },
   actions: {
@@ -24,5 +26,11 @@ export const useCmsOptionsStore = defineStore('cmsOptions', {
         localStorage.setItem(key, value);
       }
     },
+    setKeyValue(key, value) {
+      this.options[key] = value;
+      localStorage.setItem('options', JSON.stringify(this.options));
+      localStorage.setItem(key, value);
+      this.setAllOptions(this.options);
+    }
   },
-})
+});

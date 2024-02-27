@@ -18,6 +18,13 @@ Route::get('/', function () {
         'categories' => ContentController::getAllCats()
     ]);
 })->name('home');
+Route::get('/post/{slug}', function (Request $request) {
+    return Inertia::render('frontOffice/Entry', [
+        'options' => OptionsController::getOptions(),
+        'categories' => ContentController::getAllCats(),
+        'entry' => EntriesController::show($request->slug),
+    ]);
+})->name('entry');
 
 Route::group(['middleware' => config('fortify.middleware', ['web'])], function () {
     $enableViews = config('fortify.views', true);
@@ -102,12 +109,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
     })->name('subcategories.editForm');;
     
     //Crear ambas
-    Route::get('/categories/create', function (Request $request) {
+    Route::get('/categories/create', function () {
         return Inertia::render('backOffice/CategoriesForm', [
             'options' => OptionsController::getOptions(),
         ]);
     })->name('categories.createForm');
-    Route::get('/subcategories/create', function (Request $request) {
+    Route::get('/subcategories/create', function () {
         return Inertia::render('backOffice/SubcategoriesForm', [
             'options' => OptionsController::getOptions(),
             'parents' => CategoriesController::index('categories'),
@@ -141,7 +148,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
             'subcategories' => CategoriesController::index('subcategories'),
             'entry' => EntriesController::get($request->id)]);
     })->name('entries.editForm');;
-    Route::get('/entries/create', function (Request $request) {
+    Route::get('/entries/create', function () {
         return Inertia::render('backOffice/EntriesForm', [
             'options' => OptionsController::getOptions(),
             'categories' => CategoriesController::index('categories'),

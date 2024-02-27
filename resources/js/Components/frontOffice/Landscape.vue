@@ -7,17 +7,18 @@
         btnText: String,
         btnUrl: String,
         image: String,
+        mainColor: String,
     });
 </script>
 
 <template>
     <section id="landscape-image">
-        <div alt="Portada" class="landscape-file img-fluid" v-bind:style="{ backgroundImage: 'url(' + image + ')' }"></div>
+        <div alt="Portada" class="landscape-file img-fluid" v-bind:style="{ backgroundImage: 'url(./img/' + image + ')' }"></div>
 
         <div v-if="title" class="image-text">
             <h1 class="homeTitle">{{ title }}</h1>
             <p class="homeSubtitle">{{ subtitle }}</p>
-            <Link :href="btnUrl" class="btn btn-primary btn-lg">{{ btnText }}</Link>
+            <Link :style="`background-color: ${mainColor}`" :href="btnUrl" class="btn btn-lg text-white">{{ btnText }}</Link>
         </div>
         <div v-else class="slotDiv">
             <slot />

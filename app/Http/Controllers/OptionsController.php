@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 
 class OptionsController extends Controller{
@@ -22,6 +23,13 @@ class OptionsController extends Controller{
       return DB::table('options')->get();
     }
     public static function update(Request $request) {
-      // $slug = Str::slug($request->name, "-");
+      $data = $request->all();
+      foreach ($data as $element) {
+        DB::table('options')->where('id', $element['id'])->update([
+          "value" => $element['value'],
+          "updated_at" => Carbon::now(),
+        ]);
+      }
+      return to_route('dashboard');
   }
 }

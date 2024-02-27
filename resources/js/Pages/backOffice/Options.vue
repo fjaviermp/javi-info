@@ -42,19 +42,28 @@
     const customizationOptions = useCmsOptionsStore();
 
     onBeforeMount(() => {
-      customizationOptions.setAllOptions(props.customization);
+      customizationOptions.setAllOptions(props.options);
     });
 
     function submit() {
-      console.log(formOptions.value)
-      // router.post('/admin/options/update/', formOptions.value)
+      const changedValues = [];
+      formOptions.value.forEach(option => {
+        if (option.value !== props.options[option.key]) {
+          changedValues.push({
+            id: option.id,
+            key: option.key,
+            value: option.value,
+          });
+          customizationOptions.setKeyValue(option.key, option.value);
+        }
+      });
+      router.post('/admin/options/update/', changedValues);
     }
 </script>
 
 <script>
-import { Head } from '@inertiajs/vue3';
-import { useForm, router } from '@inertiajs/vue3';
-import { onBeforeMount, ref, reactive } from "vue";
+import { Head, router } from '@inertiajs/vue3';
+import { onBeforeMount, ref } from "vue";
 import PrimaryButton from '@/Components/forms/PrimaryButton.vue';
 import { useCmsOptionsStore } from '../../stores/cmsOptions'
 import AppLayout from '@/Layouts/AppLayout.vue'

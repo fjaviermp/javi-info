@@ -32,7 +32,7 @@
                                     <Link class="dropdown-item" :href="('/'+category.slug+'/'+subcat.slug)">{{ subcat.name }}</Link>
                                 </li>
                                 <li v-for="entry in category.entries" :key="entry.id">
-                                    <Link class="dropdown-item" :href="('/'+entry.slug+'/'+entry.slug)">{{ entry.name }}</Link>
+                                    <Link class="dropdown-item" :href="('/post/'+entry.slug)">{{ entry.name }}</Link>
                                 </li>
                             </ul>
                         </li>

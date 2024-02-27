@@ -14,7 +14,7 @@
   const mainColor = ref([]);
   onBeforeMount(() => {
     optionsSelected.value = customizationOptions.getAllOptions;
-    mainColor.value = customizationOptions.getBackGroundMainColor;
+    mainColor.value = `background-color:  ${localStorage.getItem('main_color')}`;
   });
 </script>
 

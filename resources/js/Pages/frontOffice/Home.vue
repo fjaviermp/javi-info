@@ -23,7 +23,14 @@
 <template>
   <Head :title="('Inicio')"></Head>
   <Navbar :categories="categories" :title="options.web_title"></Navbar>
-  <Landscape :title="options.home_title" :subtitle="options.home_subtitle" :btnText="options.home_btnText" :btnUrl="options.home_btnUrl" :image="'../img/'+options.home_image"></Landscape>
+  <Landscape
+    :main-color="options.main_color"
+    :title="options.home_title"
+    :subtitle="options.home_subtitle"
+    :btnText="options.home_btnText"
+    :btnUrl="options.home_btnUrl"
+    :image="'../img/'+options.home_image">
+  </Landscape>
     <section class="features-section">
       <div class="container-fluid">
         <div class="row justify-content-center">

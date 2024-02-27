@@ -27,15 +27,16 @@
     </div>
     <app-layout v-bind:options="options">
         <template #header>
-            Listado de subcategorías
+            <div class="d-flex flex-wrap flex-row justify-between justify-items-center items-center">
+                Listado de subcategorías
+                <inertia-link href="subcategories/create" class="no-underline text-indigo-600 hover:text-indigo-900">
+                    <button :style="mainColor" class="p-3 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition"><i class="fa-solid fa-plus"></i> | Crear SUBCATEGORÍA</button>
+                </inertia-link>
+            </div>
         </template>
 
 
         <jet-bar-container>
-            <inertia-link href="subcategories/create" class="mb-3 justify-end flex no-underline text-indigo-600 hover:text-indigo-900">
-                <button class="p-3 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition"><i class="fa-solid fa-plus"></i> | Crear SUBCATEGORÍA</button>
-            </inertia-link>
-
             <jet-bar-table :headers="['Nombre', 'Categoría Padre', 'Estado', '', '']" >
                 <tr class="hover:bg-gray-50" v-for="category in categories" :id="'category'+category.id" >
                     <jet-bar-table-data>
@@ -73,9 +74,19 @@
 
 
 <script setup>
+import { useCmsOptionsStore } from '../../stores/cmsOptions'
+import {onBeforeMount, ref } from 'vue';
+
     const props = defineProps({
         options: Object,
         categories: Object,
+    });
+    const customizationOptions = useCmsOptionsStore();
+    const optionsSelected = ref([]);
+    const mainColor = ref([]);
+    onBeforeMount(() => {
+        optionsSelected.value = customizationOptions.getAllOptions;
+        mainColor.value = customizationOptions.getBackGroundMainColor;
     });
 
 </script>
